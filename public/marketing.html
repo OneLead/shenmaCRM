@@ -48,6 +48,11 @@
     <link rel="stylesheet" href="/public/css/marketing.css"/>
     <script src="/public/js/vendor/jquery.min.js"></script>
     <script src="/public/js/vendor/bootstrap.min.js"></script>
+    <style id="style"></style>
+    <script>
+        var phoneScale = (parseInt(window.screen.width)-30)/316;
+        document.getElementById('style').innerHTML='svg{transform: scale('+phoneScale+');margin-left:0px;}';
+    </script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=WQnu4w1cseOB42bSvZv7t5uP&v=1.0"></script>
 </head>
 <body ng-app="marketing-module">
@@ -57,7 +62,7 @@
     </div>
 </header>
 <marketing-header></marketing-header>
-<div class="container" ng-view>
+<div class="container-fluid" ng-view>
 </div>
 </body>
 <script src="/public/js/vendor/angular.min.js"></script>
