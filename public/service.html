@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<script>
+    //TODO:检查cookie，未登录的话跳到index.html
+    var sID = sessionStorage.getItem('sessionID');
+    if(!sID){
+        location.assign('/');
+    }
+    else{
+        var xmlHttp;
+        function createxmlHttpRequest() {
+            if (window.ActiveXObject) {
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            } else if (window.XMLHttpRequest) {
+                xmlHttp = new XMLHttpRequest();
+            }
+        }
+        function doGet(url){
+// 注意在传参数值的时候最好使用encodeURI处理一下，以防出现乱码
+            createxmlHttpRequest();
+            xmlHttp.open("GET",url);
+            xmlHttp.send();
+            xmlHttp.onreadystatechange = function() {
+                if ((xmlHttp.readyState == 4) && (xmlHttp.status == 200)) {
+                    //alert('success');
+                    if(!xmlHttp.responseText)location.assign('/');
+                    var cate = JSON.parse(xmlHttp.responseText);
+                    UUID = cate.uuid;
+                    var id = cate.role.roleId;
+                    switch(id){
+                        case '3':
+                            location.assign('/marketing');break;
+                        case '1':
+                            location.assign('/manager');break;
+                        case '2':
+                            sessionStorage.setItem('uuid',cate.uuid);
+                    }
+                }
+            }
+        }
+        doGet(localStorage.getItem('ip')+'retailer/user/getUserInfo?sessionID='+sID);
+    }
+</script>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <title>驻场客服模块－神⻢特价房电商数据管理平台</title>
+    <link rel="stylesheet" href="/public/css/service.css"/>
+    <script src="/public/js/vendor/jquery.min.js"></script>
+    <script src="/public/js/vendor/bootstrap.min.js"></script>
+</head>
+<body ng-app="service-module">
+<!--<button ng-controller="test-controller" ng-click="sendtest()">getinfo</button>-->
+<header id="big-title">
+    <div class="container">
+        <h1>神⻢特价房<wbr>电商数据管理平台</h1>
+    </div>
+</header>
+<service-header></service-header>
+<div class="container" ng-view>
+</div>
+</body>
+<script src="/public/js/vendor/angular.min.js"></script>
+<script src="/public/js/vendor/angular-route.min.js"></script>
+<script src="/public/js/service/service-app.js"></script>
+<script src="/public/js/service/service-directives.js"></script>
+<script src="/public/js/service/service-controllers.js"></script>
+</html>

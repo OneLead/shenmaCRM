@@ -1,0 +1,46 @@
+@import "bootless/bootstrap.less";
+header#big-title {
+  background-color:@gray-dark;
+  color:@brand-primary;
+  height:40px;
+  text-shadow:0 1px 2px rgba(255,255,255,0.4),0 0 1px @brand-primary;
+  h1 {
+    font-size: 1.5em;
+    margin-top:10px;
+  }
+}
+.input-group {
+  margin: 10px;
+}
+td>.button{
+  .border-top-radius(3px);
+  .border-bottom-radius(3px);
+}
+.table td{
+  text-align: center;
+  vertical-align: middle!important;
+  line-height: 100%!important;
+}
+.navbar-default{
+  .navbar-nav>.active{
+    form,form:hover,form:focus{
+      color: #555;
+      background-color: #e7e7e7;
+    }
+  }
+  form.navbar-form{
+    margin:0 auto;
+    padding:8px 15px;
+  }
+}
+@media(max-width:480px){
+  .ellipsis {
+    display: inline-block;
+    max-width: 72px;
+    padding-top:12px!important;
+    .text-overflow();
+    &:hover{
+      overflow:visible;
+    }
+  }
+}

@@ -1,0 +1,55 @@
+@import "bootless/bootstrap.less";
+header#big-title {
+  background-color:@gray-dark;
+  color:@brand-primary;
+  height:40px;
+  text-shadow:0 1px 2px rgba(255,255,255,0.4),0 0 1px @brand-primary;
+  h1 {
+    font-size: 1.5em;
+    margin-top:10px;
+  }
+}
+#map{
+  height:400px;
+}
+.input-group {
+  margin: 10px;
+}
+ul.dropdown-menu{
+  background-color: @gray-lighter!important;
+}
+section.customer,section.pgoals,section.pranking{
+  .btn-default.cat:focus{
+    background-color: #fff;
+  }
+}
+body {
+  font-family: sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+  stroke-width:2;
+}
+.axis path {
+  display: none;
+}
+#pgoalContent,#prankingContent {
+  .pager {
+    margin: 0;
+  }
+}
+#pgoalCategory,#prankingCategory{
+  a.btn{
+      margin:0 10px;
+  }
+}
+svg:not(:root) {
+  margin-top: 30px;
+}
+#custTable{
+  overflow:scroll;
+}

@@ -1,0 +1,30 @@
+<section class="pranking">
+    <div class="navbar-fixed-bottom" id="rankingCategory" ng-controller="rankingCategoryCtrl">
+        <p class="text-center">
+            <a href="" class="btn btn-{{d=='person'?'primary':'default'}}" role="button" ng-click="dimension('person')">个人排行</a>
+            <a href="" class="btn btn-{{d=='method'?'primary':'default'}}" role="button" ng-click="dimension('method')">行销渠道排行</a>
+        </p>
+        <p class="text-center">
+            <a href="" class="btn btn-{{c=='day'?'primary':'default'}}" role="button" ng-click="goto('day')">日</a>
+            <a href="" class="btn btn-{{c=='week'?'primary':'default'}}" role="button" ng-click="goto('week')">周</a>
+            <a href="" class="btn btn-{{c=='month'?'primary':'default'}}" role="button" ng-click="goto('month')">月</a>
+            <a href="" class="btn btn-{{c=='all'?'primary':'default'}}" role="button" ng-click="goto('all')">总</a>
+        </p>
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default cat{{n=='visited'?'':' active'}}" ng-click="tab('visited')">到访排行榜</button>
+            </div>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default cat{{n=='knockdowned'?'':' active'}}" ng-click="tab('knockdowned')">成交排行榜</button>
+            </div>
+        </div>
+    </div>
+    <div ng-controller="rankingContentCtrl" id="rankingContent">
+        <nav>
+            <ul class="pager">
+                <li class="previous"><a href="" ng-click="higher()"><span aria-hidden="true">&larr;</span> Higher</a></li>
+                <li class="next"><a href="" ng-click="lower()">Lower <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+    </div>
+</section>

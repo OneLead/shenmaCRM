@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<script>
+    //TODO: 检查cookie，如果已经登陆，则跳到相应模块的主页（管理员／一级／二级／三级／四级）
+    localStorage.setItem('ip','http://115.29.151.151:8080/');
+    localStorage.setItem('front','192.168.1.60:8000');
+    var xmlHttp;
+    function createxmlHttpRequest() {
+        if (window.ActiveXObject) {
+            xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+        } else if (window.XMLHttpRequest) {
+            xmlHttp = new XMLHttpRequest();
+        }
+    }
+    function doGet(url){
+// 注意在传参数值的时候最好使用encodeURI处理一下，以防出现乱码
+        createxmlHttpRequest();
+        xmlHttp.open("GET",url);
+        xmlHttp.send();
+        xmlHttp.onreadystatechange = function() {
+            if ((xmlHttp.readyState == 4) && (xmlHttp.status == 200)) {
+                //alert('success');
+                var cate = JSON.parse(xmlHttp.responseText);
+                var id = cate.role.roleId;
+                switch(id){
+                    case '1':
+                        location.assign('/manager');break;
+                    case '2':
+                        location.assign('/leader');break;
+                    case '3':
+                        location.assign('/marketing');break;
+                    case '4':
+                        location.assign('/service');break;
+                }
+            }
+        }
+    }
+    var sID = sessionStorage.getItem('sessionID');
+    doGet(localStorage.getItem('ip')+'retailer/user/getUserInfo?sessionID='+sID);
+</script>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <title>登陆－神⻢特价房电商数据管理平台</title>
+    <link rel="stylesheet" href="public/css/login.css">
+</head>
+<body>
+    <header id="big-title">
+        <div class="container">
+            <h1>神⻢特价房<wbr>电商数据管理平台</h1>
+        </div>
+    </header>
+    <div class="container body">
+        <div class="row">
+            <div class="hidden-xs col-sm-5 col-md-7 col-lg-8">
+                info here
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-7 col-xs-12">
+                <div class="panel panel-default" ng-app="loginModule" id="login" ng-controller="login">
+                    <div class="panel-heading">登录</div>
+                    <div class="panel-body">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="工号" aria-describedby="staffID" ng-model="loginInfo.staffID">
+                            <span class="input-group-addon" id="staffID"><i class="glyphicon glyphicon-user"></i></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" class="form-control" placeholder="密码" aria-describedby="password" ng-model="loginInfo.password">
+                            <span class="input-group-addon" ng-if="!validateID(loginInfo.staffID)" id="password"><i class="glyphicon glyphicon-lock"></i></span>
+                            <a class="input-group-addon" ng-if="validateID(loginInfo.staffID)" href="" ng-click="resetPass(loginInfo.staffID)"><i class="glyphicon glyphicon-refresh"></i>忘记密码…</a>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="手机验证码" aria-describedby="security" ng-model="loginInfo.security">
+                            <span class="input-group-addon" ng-if="!validateID(loginInfo.staffID)" id="security"><i class="glyphicon glyphicon-phone"></i></span>
+                            <a class="input-group-addon" ng-if="validateID(loginInfo.staffID)" href="" ng-click="askForVal(loginInfo.staffID)"><i class="glyphicon glyphicon-share"></i>发送验证码</a>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <a href="" class="btn btn-primary pull-right" role="button" ng-click="loginJump(loginInfo)" ng-show="validate(loginInfo)">登录</a>
+                           <!--ng-show="validate(loginInfo)"//TODO: insert this into above <a>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="public/js/vendor/angular.min.js"></script>
+<script src="public/js/ng-services/get-info-service.js"></script>
+<script src="public/js/login/login-app.js"></script>
+<script src="public/js/login/login-controller.js"></script>
+</html>

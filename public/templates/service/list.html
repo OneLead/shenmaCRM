@@ -1,0 +1,26 @@
+<section class="list">
+    <div class="btn-group btn-group-justified navbar-fixed-bottom" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default cat {{n==1?'':'active'}}" ng-click="change(1)">未确认</button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default cat {{n==2?'':'active'}}" ng-click="change(2)">到访</button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default cat {{n==3?'':'active'}}" ng-click="change(3)">认筹</button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default cat {{n==4?'':'active'}}" ng-click="change(4)">成交</button>
+        </div>
+    </div>
+    <ul class="cust-list">
+        <li ng-repeat="data in dataList" class="customer-card">
+            <customer-card name="data.name"
+               state="stateParse(data.state)"
+               serial="data.id" project="data.projectName"
+               phone="data.mobile" source="'地推派单'"
+                    uuid="data.uuid">
+            </customer-card>
+        </li>
+    </ul>
+</section>

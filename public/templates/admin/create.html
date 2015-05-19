@@ -1,0 +1,59 @@
+<section>
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        请填写下列信息，点击“创建”提交。
+    </div>
+    <form novalidate class="form">
+        <div class="input-group">
+            <span class="input-group-addon">
+                选择角色：
+            </span>
+            <select name="role" class="form-control">
+                <option value="manager">城市总经理</option>
+                <option value="leader">项目主管</option>
+                <option value="marketing">行销专员</option>
+                <option value="service">驻场客服</option>
+            </select>
+        </div><!-- /input-group -->
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="姓名" aria-describedby="name" ng-model="create.name">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="手机号" aria-describedby="phone" ng-model="create.phone">
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="工号" aria-describedby="staffID" ng-model="create.staffID">
+        </div>
+        <div class="input-group">
+            <input type="password" class="form-control" placeholder="密码" aria-describedby="pass" ng-model="create.pass">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">
+                所属城市公司：
+            </span>
+            <select name="city" class="form-control">
+                <option value="qingdao">青岛</option>
+            </select>
+        </div><!-- /input-group -->
+        <div class="input-group">
+            <span class="input-group-addon">
+                所属项目：
+            </span>
+            <select name="project" class="form-control">
+            </select>
+        </div><!-- /input-group -->
+        <div class="input-group">
+            <span class="input-group-addon">
+                所属部门：
+            </span>
+            <select name="department" class="form-control">
+                <option value="sales">行销拓客部</option>
+            </select>
+        </div><!-- /input-group -->
+        <button type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span> 创建
+        </button>
+    </form>
+</section>

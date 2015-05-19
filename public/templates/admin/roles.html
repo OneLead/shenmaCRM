@@ -1,0 +1,16 @@
+<section>
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        目前不允许修改角色。
+    </div>
+    <table class="table">
+        <thead><td>#</td><td>角色名称</td><td>权限</td></thead>
+        <tr ng-repeat="item in data">
+            <td>{{item.roleId}}</td>
+            <td>{{item.roleName}}</td>
+            <td>{{item.roleId+'级'}}</td>
+        </tr>
+    </table>
+</section>

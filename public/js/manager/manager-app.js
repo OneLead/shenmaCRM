@@ -1,0 +1,26 @@
+angular.module('manager-module',['ngRoute','d3'])
+    .config(['$routeProvider',function($routeProvider){
+        $routeProvider
+            .when('/',{
+                templateUrl:'/public/templates/manager/Manager.html'
+            })
+            .when('/manager',{
+                templateUrl:'/public/templates/manager/Manager.html'
+            })
+            .when('/managerJump/:code',{
+                templateUrl:'/public/templates/manager/ManagerJump.html',
+                controller:'managerCtrl'
+            })
+            .when('/project:N/goals',{
+                templateUrl:'/public/templates/leader/projectGoals.html',
+                controller:'goalsCtrl'
+            })
+            .when('/project:N/expense',{
+                templateUrl:'/public/templates/leader/projectExpense.html',
+                controller:'expenseCtrl'
+            })
+            .when('/project:N/ranking',{
+                templateUrl:'/public/templates/leader/projectRanking.html',
+                controller:'rankingCtrl'
+            });
+    }]);

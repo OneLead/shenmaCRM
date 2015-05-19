@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<script>
+    //TODO:检查cookie，未登录的话跳到index.html
+</script>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <title>管理员模块－神⻢特价房电商数据管理平台</title>
+    <link rel="stylesheet" href="/public/css/admin.css"/>
+    <script src="/public/js/vendor/jquery.min.js"></script>
+    <script src="/public/js/vendor/bootstrap.min.js"></script>
+</head>
+<body ng-app="admin-module">
+    <header id="big-title">
+        <div class="container">
+            <h1>神⻢特价房<wbr>电商数据管理平台</h1>
+        </div>
+    </header>
+    <admin-header></admin-header>
+    <div class="container" ng-view>
+    </div>
+</body>
+<script src="/public/js/vendor/angular.min.js"></script>
+<script src="/public/js/vendor/angular-route.min.js"></script>
+<script src="/public/js/admin/admin-app.js"></script>
+<script src="/public/js/admin/admin-controllers.js"></script>
+<script src="/public/js/admin/admin-directives.js"></script>
+</html>

@@ -1,0 +1,30 @@
+<section class="pgoals">
+    <div class="navbar-fixed-bottom" id="expenseCategory" ng-controller="expenseCategoryCtrl">
+        <p class="text-center">
+            <a href="" class="btn btn-{{c=='week'?'primary':'default'}}" role="button" ng-click="goto('week')">周</a>
+            <a href="" class="btn btn-{{c=='month'?'primary':'default'}}" role="button" ng-click="goto('month')">月</a>
+            <a href="" class="btn btn-{{c=='all'?'primary':'default'}}" role="button" ng-click="goto('all')">总</a>
+        </p>
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default cat{{n=='total'?'':' active'}}" ng-click="tab('total')">项目总费效比</button>
+            </div>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default cat{{n=='method'?'':' active'}}" ng-click="tab('method')">分行销渠道</button>
+            </div>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default cat{{n=='area'?'':' active'}}" ng-click="tab('area')">分行销区域</button>
+            </div>
+        </div>
+    </div>
+    <div ng-controller="expenseContentCtrl" id="expenseContent">
+        <nav>
+            <ul class="pager">
+                <li class="previous"><a href=""><span aria-hidden="true">&larr;</span> Older</a></li>
+                <li class="next"><a href="">Newer <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+        <p>项目成交费效比：总投入费用（100000）总投入人员（30）</p>
+
+    </div>
+</section>

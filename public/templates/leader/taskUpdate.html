@@ -1,0 +1,52 @@
+<form name="task">
+    <p>派发执行时间</p>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon0">默认第二天</span>
+        <input disabled type="text" class="form-control"
+               placeholder="time" aria-describedby="basic-addon0"
+               ng-model="date">
+    </div>
+    <p>设定行销方式</p>
+    <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary{{$parent.data.salesMode.uuid==method.uuid?' active':''}}" ng-repeat="method in methods">
+            <input type="radio" name="method" autocomplete="off" value="{{method.uuid}}"> {{method.name}}
+        </label>
+    </div>
+    <p>设定预算、员工、行销区域</p>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1-1">预算</span>
+        <input name="budget" ng-model="data.budget" type="text" class="form-control"
+               placeholder="budget" aria-describedby="basic-addon1-1">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1-2">成交目标</span>
+        <input name="quotaDeal" ng-model="data.quotaDeal" type="text" class="form-control" ng-pattern="number"
+               placeholder="budget" aria-describedby="basic-addon1-2">
+        <span class="input-group-addon" id="basic-addon1-3">到访目标</span>
+        <input name="quotaVisit" ng-model="data.quotaVisit" type="text" class="form-control" ng-pattern="number"
+               placeholder="budget" aria-describedby="basic-addon1-3">
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon2">员工</span>
+        <select multiple="multiple" class="form-control" name="staff"
+                aria-describedby="basic-addon2">
+            <option ng-repeat="staff in staffs" value="{{staff.uuid}}">{{staff.name}}</option>
+        </select>
+    </div>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon3">行销区域</span>
+        <input ng-model="data.area" disabled type="text" class="form-control"
+               placeholder="area" aria-describedby="basic-addon3">
+    </div>
+    <button class="btn btn-block{{validate()?'':' disabled'}}" ng-click="submit(data)">立即提交</button>
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" id="upload-info">
+            </div>
+        </div>
+    </div>
+</div>

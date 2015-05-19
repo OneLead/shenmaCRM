@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<script>
+    //TODO:检查cookie，未登录的话跳到index.html
+    var sID = sessionStorage.getItem('sessionID');
+    if(!sID){
+        location.assign('/');
+    }
+    else{
+        var xmlHttp;
+        function createxmlHttpRequest() {
+            if (window.ActiveXObject) {
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            } else if (window.XMLHttpRequest) {
+                xmlHttp = new XMLHttpRequest();
+            }
+        }
+        function doGet(url){
+// 注意在传参数值的时候最好使用encodeURI处理一下，以防出现乱码
+            createxmlHttpRequest();
+            xmlHttp.open("GET",url);
+            xmlHttp.send();
+            xmlHttp.onreadystatechange = function() {
+                if ((xmlHttp.readyState == 4) && (xmlHttp.status == 200)) {
+                    //alert('success');
+                    if(!xmlHttp.responseText)location.assign('/');
+                    var cate = JSON.parse(xmlHttp.responseText);
+                    var id = cate.role.roleId;
+                    sessionStorage.setItem('uuid',cate.uuid);
+                    switch(id){
+                        case '1':
+                            location.assign('/manager');break;
+                        case '2':
+                            location.assign('/leader');break;
+                        case '4':
+                            location.assign('/service');break;
+                    }
+                }
+            }
+        }
+        doGet(localStorage.getItem('ip')+'retailer/user/getUserInfo?sessionID='+sID);
+    }
+</script>
+<head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <title>行销专员模块－神⻢特价房电商数据管理平台</title>
+    <link rel="stylesheet" href="/public/css/marketing.css"/>
+    <script src="/public/js/vendor/jquery.min.js"></script>
+    <script src="/public/js/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=WQnu4w1cseOB42bSvZv7t5uP&v=1.0"></script>
+</head>
+<body ng-app="marketing-module">
+<header id="big-title">
+    <div class="container">
+        <h1>神⻢特价房<wbr>电商数据管理平台</h1>
+    </div>
+</header>
+<marketing-header></marketing-header>
+<div class="container" ng-view>
+</div>
+</body>
+<script src="/public/js/vendor/angular.min.js"></script>
+<script src="/public/js/vendor/angular-route.min.js"></script>
+<!--<script src="/public/js/vendor/angular-sanitize.min.js"></script>-->
+<script src="/public/js/ng-services/D3-service.js"></script>
+<script src="/public/js/ng-services/get-info-service.js"></script>
+<script src="/public/js/ng-services/get-chart-data-service.js"></script>
+<script src="/public/js/marketing/marketing-app.js"></script>
+<script src="/public/js/marketing/marketing-controllers.js"></script>
+<script src="/public/js/marketing/marketing-controllers-customer.js"></script>
+<script src="/public/js/marketing/marketing-controllers-pgoal.js"></script>
+<script src="/public/js/marketing/marketing-controllers-pranking.js"></script>
+<script src="/public/js/marketing/marketing-directives.js"></script>
+<!--<script src="http://192.168.1.123:8080/target/target-script-min.js#anonymous"></script>-->
+</html>

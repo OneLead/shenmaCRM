@@ -1,0 +1,25 @@
+angular
+    .module('admin-module',['ngRoute'])
+    .config(['$routeProvider',function($routeProvider){
+        $routeProvider
+            .when('/',{
+                templateUrl:'/public/templates/admin/roles.html',
+                controller:'rolesController'
+            })
+            .when('/roles',{
+                templateUrl:'/public/templates/admin/roles.html',
+                controller:'rolesController'
+            })
+            .when('/create',{
+                templateUrl:'/public/templates/admin/create.html',
+                controller:'createController'
+            })
+            .when('/modify/:sID',{
+                templateUrl:'/public/templates/admin/modify.html',
+                controller:'modifyController'
+            })
+            .when('/search/:searchWord',{
+                templateUrl:'/public/templates/admin/search.html',
+                controller:'searchController'
+            });
+    }]);

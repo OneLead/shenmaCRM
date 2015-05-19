@@ -1,0 +1,53 @@
+<div>
+    <form novalidate name="searchForm">
+        <fieldset class="form-group">
+            <legend><input name="category" value="phone" type="radio" ng-model="search.key" checked>按客户手机号码查询</legend>
+            <div ng-show="search.key=='phone'" class="input-group {{!validatephone()&&searchForm.ph.$dirty?'has-error ':''}}{{validatephone()&&searchForm.ph.$dirty?'has-success':''}} has-feedback">
+                <input placeholder="11位手机号码" class="form-control" type="text" ng-model="phoneNum" name="ph"/>
+                <span ng-show="searchForm.ph.$dirty" class="glyphicon {{validatephone()?'glyphicon-ok':'glyphicon-remove'}} form-control-feedback" aria-hidden="true"></span>
+            </div>
+        </fieldset>
+        <fieldset class="form-group">
+            <legend><input name="category" value="method" type="radio" ng-model="search.key">按行销渠道来源查询</legend>
+            <div class="wrap" ng-if="search.key=='method'">
+                <div class="checkbox-inline" ng-repeat="method in methods">
+                    <label>
+                        <input type="checkbox" ng-model="$parent.method[method.uuid]">{{method.name}}
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="form-group">
+            <legend><input name="category" value="state" type="radio" ng-model="search.key">按客户状态查询</legend>
+            <div class="wrap" ng-if="search.key=='state'">
+                <div class="checkbox-inline">
+                    <label>
+                        <input type="checkbox" ng-model="state.pending">未到访
+                    </label>
+                </div>
+                <div class="checkbox-inline">
+                    <label>
+                        <input type="checkbox" ng-model="state.visits">已到访
+                    </label>
+                </div>
+                <div class="checkbox-inline">
+                    <label>
+                        <input type="checkbox" ng-model="state.chips">已认筹
+                    </label>
+                </div>
+                <div class="checkbox-inline">
+                    <label>
+                        <input type="checkbox" ng-model="state.knockdowns">已成交
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+        <!--<div>-->
+            <!--{{search | json}}<br>-->
+            <!--{{method | json}}<br>-->
+            <!--{{state | json}}<br>-->
+            <!--{{phoneNum}}-->
+        <!--</div>-->
+        <button type="submit" class="btn btn-primary{{validate()?'':' disabled'}}" ng-click="find(search)">查询</button>
+    </form>
+</div>

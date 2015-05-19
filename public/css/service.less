@@ -1,0 +1,108 @@
+@import "bootless/bootstrap.less";
+header#big-title {
+  background-color:@gray-dark;
+  color:@brand-primary;
+  height:40px;
+  text-shadow:0 1px 2px rgba(255,255,255,0.4),0 0 1px @brand-primary;
+  h1 {
+    font-size: 1.5em;
+    margin-top:10px;
+  }
+}
+ul{
+  padding:0;
+  li{
+    list-style: none;
+  }
+}
+
+.nav-bar{
+  margin-bottom: 0;
+}
+ul.cust-list{
+  overflow:scroll;
+  li{
+    .clearfix();
+  }
+}
+.customer-card{
+  border:2px solid @brand-primary;
+  border-radius: 15px;
+  position:relative;
+  padding:15px 15px 3px;
+  margin:15px 15px 22px;
+  .abs{
+    position:absolute;
+    top:-11px;
+    height:22px;
+    text-align: center;
+    line-height: 22px;
+    vertical-align: middle;
+    font-size:1.2em;
+  }
+  .name{
+    right:181px;
+    width:80px;
+    background-color: white;
+    color:@brand-primary;
+  }
+  .state{
+    color:white;
+    right: 64px;
+    width:22px;
+    border-radius: 11px;
+    overflow: hidden;
+    background-color: @brand-primary;
+  }
+  @media (max-width:@screen-xs){
+    .name{
+      right:141px;
+      width:68px;
+    }
+    .state{
+      right:34px;
+    }
+  }
+  .serial{
+    color:lighten(@gray-light,10%);
+    font-size:0.8em;
+    margin:8px 5px;
+    width:19px;
+    position: absolute;
+  }
+  .wrapper{
+    margin:5px 10px 5px 39px;
+  }
+  .item>span{
+    margin-right:10px;
+    font-weight: bold;
+  }
+}
+#indicator{
+  li{
+    shape-outside: polygon(0 0,90% 0,100% 50%,90% 100%,0 100%,10% 50%);
+    clip-path: polygon(0 0,90% 0,100% 50%,90% 100%,0 100%,10% 50%);
+    -ms-clip-path: polygon(0 0,90% 0,100% 50%,90% 100%,0 100%,10% 50%);
+    -moz-clip-path: polygon(0 0,90% 0,100% 50%,90% 100%,0 100%,10% 50%);
+    -o-clip-path: polygon(0 0,90% 0,100% 50%,90% 100%,0 100%,10% 50%);
+    -webkit-clip-path: polygon(0 0,90% 0,100% 50%,90% 100%,0 100%,10% 50%);
+    background-color: lighten(@gray-light,10%);
+    height:2.5em;
+    line-height: 2.5em;
+    vertical-align: middle;
+    color:white;
+  }
+  li.active{
+    background-color: @brand-primary;
+  }
+}
+#rangeInput{
+  padding:30px;
+}
+
+button.cat{
+  &:hover,&:focus,&:active{
+    outline:none;
+    background-color: white;
+  }
+}

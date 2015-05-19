@@ -1,0 +1,23 @@
+/**
+ * Created by yanyang on 5/3/15.
+ */
+angular.module('service-module')
+    .directive('serviceHeader',function(){
+        return{
+            restrict:'E',
+            templateUrl:'/public/templates/service/Header.html',
+            controller:'serviceHeaderController'
+        };
+    })
+    .directive('customerCard',function(){
+        return{
+            restrict:'E',
+            templateUrl:'/public/templates/service/customerCard.html',
+            scope:{serial:'=',name:'=',phone:'=',project:'=',source:'=',state:'=',uuid:'='},
+            link:function($scope,$element){
+                $element.click(function(){
+                    location.assign('#/'+$scope.uuid+'/detail');
+                });
+            }
+        }
+    });

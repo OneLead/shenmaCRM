@@ -1,0 +1,31 @@
+/**
+ * Created by yanyang on 5/3/15.
+ */
+angular.module('service-module',['ngRoute'])
+    .config(['$routeProvider',function($routeProvider){
+        $routeProvider
+            .when('/',{
+                templateUrl:'/public/templates/service/query.html',
+                controller:'queryController'
+            })
+            .when('/query',{
+                templateUrl:'/public/templates/service/query.html',
+                controller:'queryController'
+            })
+            .when('/list',{
+                templateUrl:'/public/templates/service/list.html',
+                controller:'listController'
+            })
+            .when('/qresult/:key/:value',{
+                templateUrl:'/public/templates/service/qresult.html',
+                controller:'qresultController'
+            })
+            .when('/:cust/detail',{
+                templateUrl:'/public/templates/service/detail.html',
+                controller:'custDetails'
+            })
+            .when('/:cust/change',{
+                templateUrl:'/public/templates/service/change.html',
+                controller:'custChange'
+            });
+    }]);
