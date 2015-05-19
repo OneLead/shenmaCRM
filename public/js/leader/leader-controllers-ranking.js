@@ -64,8 +64,8 @@ angular.module('leader-module')
                     .data(['id','idt','n','nt']).enter()
                     .append('text')
                     .attr({
-                        'stroke':'white',
-                        'fill':'white',
+                        'stroke':'rgb(55,123,181)',
+                        'fill':'rgb(55,123,181)',
                         'transform':function(d,i){return 'translate(0,'+14*i+')';}
                     });
             })();
@@ -88,7 +88,7 @@ angular.module('leader-module')
                                 d3.max(
                                     dataSlice,
                                     function (d) {
-                                        return d.count;
+                                        return +d.count;
                                     }
                                 )
                             ];
@@ -141,7 +141,7 @@ angular.module('leader-module')
                                 .text(function (d) {
                                     return d;
                                 })
-                                .style('font-size', '10px');
+                                .style('font-size', newVal[2] == 'person' ?'10px':'14px');
                         }
                     })
                     .error(function(){

@@ -1,6 +1,6 @@
 <section class="pgoals">
     <div class="navbar-fixed-bottom" id="expenseCategory" ng-controller="expenseCategoryCtrl">
-        <p class="text-center">
+        <p class="text-center" ng-hide="n=='total'">
             <a href="" class="btn btn-{{c=='week'?'primary':'default'}}" role="button" ng-click="goto('week')">周</a>
             <a href="" class="btn btn-{{c=='month'?'primary':'default'}}" role="button" ng-click="goto('month')">月</a>
             <a href="" class="btn btn-{{c=='all'?'primary':'default'}}" role="button" ng-click="goto('all')">总</a>
@@ -20,11 +20,14 @@
     <div ng-controller="expenseContentCtrl" id="expenseContent">
         <nav>
             <ul class="pager">
-                <li class="previous"><a href=""><span aria-hidden="true">&larr;</span> Older</a></li>
-                <li class="next"><a href="">Newer <span aria-hidden="true">&rarr;</span></a></li>
+                <li ng-click="older()" class="previous"><a href=""><span aria-hidden="true">&larr;</span> Older</a></li>
+                <li ng-click="newer()" class="next"><a href="">Newer <span aria-hidden="true">&rarr;</span></a></li>
             </ul>
         </nav>
-        <p>项目成交费效比：总投入费用（100000）总投入人员（30）</p>
-
+        <p ng-show="n=='total'">项目成交费效比：<br>
+            总投入费用（{{totalExpense | number:0}}）<br>
+            总投入人员（{{totalSum | number:0}}）<br>
+            人均费用（{{totalExpense/totalSum | number:0}}）
+        </p>
     </div>
 </section>
