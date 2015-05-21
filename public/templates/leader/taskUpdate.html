@@ -9,7 +9,7 @@
     <p>设定行销方式</p>
     <div class="btn-group" data-toggle="buttons">
         <label class="btn btn-primary{{$parent.data.salesMode.uuid==method.uuid?' active':''}}" ng-repeat="method in methods">
-            <input type="radio" name="method" autocomplete="off" value="{{method.uuid}}"> {{method.name}}
+            <input ng-bind="$parent.data.salesMode.uuid" type="radio" name="method" autocomplete="off" value="{{method.uuid}}"> {{method.name}}
         </label>
     </div>
     <p>设定预算、员工、行销区域</p>

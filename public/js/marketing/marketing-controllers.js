@@ -137,7 +137,7 @@ angular.module('marketing-module')
         $scope.service = false;
         $scope.data = {};
         $http({
-            url:localStorage.getItem('ip')+'retailer/customer/detail?uuid='+id,
+            url:localStorage.getItem('ip')+'retailer/customer/detail?uuid='+id+'&sessionID='+sID,
             method:'GET',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -190,7 +190,6 @@ angular.module('marketing-module')
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
                 }
             }).success(function(data){
-                console.log(data);
                 if(data.result=='1'){
                     var html = '<span>上传成功！<a ng-click="'+
                     "quitTo('customer')"+
@@ -206,6 +205,11 @@ angular.module('marketing-module')
                     '">重新登记客户信息</a></span>';
                     angular.element('#upload-info').append($compile(html)($scope));
                 }
+            }).error(function(err){
+                var html = '<p>'+err+'</p>'+'<span>存入数据库失败，请点击<a ng-click="'+
+                    "quitTo('backup')" +
+                    '">重新登记客户信息</a></span>';
+                angular.element('#upload-info').append($compile(html)($scope));
             });
         };
     });

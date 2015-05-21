@@ -55,6 +55,7 @@ angular.module('leader-module')
         $scope.data = {};//存储当前员工、行销方式等任务信息
         $scope.methods = [];//存储所有行销方式
         $scope.staffs = [];//存储所有员工
+        $scope.pastTask = false;
         $http({
             url:localStorage.getItem('ip')+'retailer/salesMode/getAll?sessionID='+sID,
             method:'GET',
@@ -148,6 +149,7 @@ angular.module('leader-module')
         };
         if(uuid=='new'){
             flag++;
+            $scope.pastTask = false;
         }
         else{
             $http({
@@ -160,6 +162,9 @@ angular.module('leader-module')
             }).success(function(data){
                 if(data.result=='1'){
                     $scope.data = data.data;
+                    var createTime = new Date(data.data.createTime.slice(0,10)),
+                        now = new Date();
+                    $scope.pastTask = createTime < now.setDate(now.getDate()+1);
                     var inter = setInterval(function(){
                         if(flag==2){
                             clearInterval(inter);
