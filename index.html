@@ -45,11 +45,6 @@
     <link rel="stylesheet" href="public/css/login.css">
 </head>
 <body>
-    <header id="big-title">
-        <div class="container">
-            <h1>神⻢特价房<wbr>电商数据管理平台</h1>
-        </div>
-    </header>
     <div class="container body">
         <div class="row">
             <div class="hidden-xs col-sm-5 col-md-7 col-lg-8">
@@ -57,7 +52,7 @@
             </div>
             <div class="col-lg-4 col-md-5 col-sm-7 col-xs-12">
                 <div class="panel panel-default" ng-app="loginModule" id="login" ng-controller="login">
-                    <div class="panel-heading">登录</div>
+                    <div class="panel-heading"><img id="login-logo" src="public/images/login-logo.png"></div>
                     <div class="panel-body">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="工号" aria-describedby="staffID" ng-model="loginInfo.staffID">
@@ -75,7 +70,7 @@
                         </div>
                     </div>
                     <div class="panel-footer">
-                        <a href="" class="btn btn-primary pull-right" role="button" ng-click="loginJump(loginInfo)" ng-show="validate(loginInfo)">登录</a>
+                        <a href="" class="btn btn-primary pull-right btn-block" role="button" ng-click="loginJump(loginInfo)" ng-show="validate(loginInfo)">登录</a>
                            <!--ng-show="validate(loginInfo)"//TODO: insert this into above <a>-->
                     </div>
                 </div>

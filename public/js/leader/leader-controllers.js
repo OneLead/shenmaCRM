@@ -4,6 +4,12 @@ angular.module('leader-module')
             $element.find('li.item').removeClass('active');
             $element.find('li.'+name1).addClass('active');
             if(name2)$element.find('li.'+name2).addClass('active');
+            var $collapse = $element.find('.navbar-collapse');
+            $collapse.addClass('collapsing')
+                .removeClass('in');
+            setTimeout(function(){
+                $collapse.removeClass('collapsing');
+            },300);
         };
         $scope.exit = function(){
             var id = sessionStorage.getItem('sessionID');

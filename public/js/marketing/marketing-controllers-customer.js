@@ -15,6 +15,6 @@ angular.module('marketing-module')
     };
 })
 .controller('custTableCtrl',function($scope){
-    $scope.category = ['手机号','到访时间','认筹时间','成交时间'];
-    $scope.catContent = ['mobile','visitTime','confirmTime','dealTime'];
+    $scope.category = ['报备时间','到访时间','认筹时间','成交时间'];
+    $scope.catContent = ['createTime','visitTime','confirmTime','dealTime'];
 });
