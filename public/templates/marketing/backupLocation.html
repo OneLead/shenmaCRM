@@ -1,6 +1,6 @@
 <section>
     <div id="map"></div>
-    <p ng-bind="location" class="alert alert-{{success?'success':'info'}}"></p>
+    <p id="map-location-text" ng-bind="location" class="alert alert-{{success?'success':'info'}}"></p>
     <div class="btn-group btn-group-justified" role="group" aria-label="...">
         <div class="btn-group" role="group">
             <button type="button" class="{{success?'':'disabled '}}btn btn-default btn-primary" ng-click="next()">下一步</button>

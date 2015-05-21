@@ -3,6 +3,12 @@ angular.module('service-module')
         $scope.goto = function(name){
             $element.find('.item').removeClass('active');
             $element.find('.'+name).addClass('active');
+            var $collapse = $element.find('.navbar-collapse');
+            $collapse.addClass('collapsing')
+                .removeClass('in');
+            setTimeout(function(){
+                $collapse.removeClass('collapsing');
+            },300);
         };
         $scope.exit = function(){
             var id = sessionStorage.getItem('sessionID');

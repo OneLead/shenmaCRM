@@ -1,0 +1,71 @@
+.navbar{
+  margin-bottom:0;
+}
+.navbar-brand{
+  padding:10px 15px;
+}
+.navbar-default{
+  background-color:black;
+  border-color:black;
+}
+.navbar-default{
+  .navbar-toggle{
+    border:none;
+    color:#e7e7e7;
+    &:hover,&:focus,&:active{
+      background-color:black;
+    }
+    .icon-bar{
+      background-color: #e7e7e7;
+    }
+  }
+  .navbar-collapse{
+    border-color:@navbar-default-toggle-icon-bar-bg;//#888
+  }
+  .navbar-nav{
+    &>li>a,&>li>a:hover,&>li>a:focus{
+      color:#e7e7e7;
+    }
+    &>.active>a,&>.active>a:hover,&>.active>a:focus{
+      color:#e7e7e7;
+      background-color: @gray;
+    }
+    .open{
+      &>a,&>a:hover,&>a:focus{
+        background-color: @gray;
+        color:#e7e7e7;
+      }
+      .dropdown-menu {
+        & > li > a {
+          color: @gray-lighter;
+          &:hover,&:focus{
+            background-color: #262626;
+          }
+        }
+        & > .active > a{
+          &,&:hover,&:focus{
+            color:#e7e7e7;
+            background-color: @gray;
+          }
+        }
+      }
+    }
+  }
+}
+ul.dropdown-menu{
+  background-color: @gray-dark !important;
+  @media (max-width:@screen-xs-max){
+    background-color: @gray-light !important;
+  }
+}
+body>.container,body>.container-fluid{
+  margin-top:13px;
+}
+
+header .navbar-collapse{
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  -ms-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}

@@ -4,16 +4,34 @@ angular.module('admin-module')
             $element.find('.roles').addClass('active');
             $element.find('.create').removeClass('active');
             $element.find('.search').removeClass('active');
+            var $collapse = $element.find('.navbar-collapse');
+            $collapse.addClass('collapsing')
+                .removeClass('in');
+            setTimeout(function(){
+                $collapse.removeClass('collapsing');
+            },300);
         };
         $scope.gotoNew = function(){
             $element.find('.create').addClass('active');
             $element.find('.roles').removeClass('active');
             $element.find('.search').removeClass('active');
+            var $collapse = $element.find('.navbar-collapse');
+            $collapse.addClass('collapsing')
+                .removeClass('in');
+            setTimeout(function(){
+                $collapse.removeClass('collapsing');
+            },300);
         };
         $scope.gotoSearch = function(){
             $element.find('.create').removeClass('active');
             $element.find('.roles').removeClass('active');
             $element.find('.search').addClass('active');
+            var $collapse = $element.find('.navbar-collapse');
+            $collapse.addClass('collapsing')
+                .removeClass('in');
+            setTimeout(function(){
+                $collapse.removeClass('collapsing');
+            },300);
         };
         $scope.search = function(key){
             if(key==undefined||key=='')alert('请输入搜索关键词');

@@ -3,25 +3,55 @@ angular.module('marketing-module')
         $scope.gotoCustomer = function(){
             $element.find('.item').removeClass('active');
             $element.find('.customer').addClass('active');
+            var $collapse = $element.find('.navbar-collapse');
+            $collapse.addClass('collapsing')
+                .removeClass('in');
+            setTimeout(function(){
+                $collapse.removeClass('collapsing');
+            },300);
         };
         $scope.gotoBackup = function(){
             $element.find('.item').removeClass('active');
             $element.find('.backup').addClass('active');
+            var $collapse = $element.find('.navbar-collapse');
+            $collapse.addClass('collapsing')
+                .removeClass('in');
+            setTimeout(function(){
+                $collapse.removeClass('collapsing');
+            },300);
         };
         $scope.gotoPGoals = function(){
             $element.find('.item').removeClass('active');
             $element.find('.goals').addClass('active');
             $element.find('.personal').addClass('active');
+            var $collapse = $element.find('.navbar-collapse');
+            $collapse.addClass('collapsing')
+                .removeClass('in');
+            setTimeout(function(){
+                $collapse.removeClass('collapsing');
+            },300);
         };
         $scope.gotoPInfo = function(){
             $element.find('.item').removeClass('active');
             $element.find('.info').addClass('active');
             $element.find('.personal').addClass('active');
+            var $collapse = $element.find('.navbar-collapse');
+            $collapse.addClass('collapsing')
+                .removeClass('in');
+            setTimeout(function(){
+                $collapse.removeClass('collapsing');
+            },300);
         };
         $scope.gotoPRanking = function(){
             $element.find('.item').removeClass('active');
             $element.find('.ranking').addClass('active');
             $element.find('.personal').addClass('active');
+            var $collapse = $element.find('.navbar-collapse');
+            $collapse.addClass('collapsing')
+                .removeClass('in');
+            setTimeout(function(){
+                $collapse.removeClass('collapsing');
+            },300);
         };
         $scope.exit = function(){
             var id = sessionStorage.getItem('sessionID');
@@ -157,7 +187,7 @@ angular.module('marketing-module')
         $scope.customer = {
             location:$routeParams.location,
             pt:$routeParams.pt,
-            time:(new Date()).toLocaleString(),
+            time:(new Date()).toString().slice(4,-15),
             name:'',
             phone:'',
             description:''
