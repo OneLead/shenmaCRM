@@ -206,7 +206,7 @@ angular.module('service-module')
         $scope.data = {};
         var id =  $routeParams.cust;
         $http({
-            url:localStorage.getItem('ip')+'retailer/customer/detail?uuid='+id,
+            url:localStorage.getItem('ip')+'retailer/customer/detail?uuid='+id+'&sessionID='+sID,
             method:'GET',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -227,7 +227,7 @@ angular.module('service-module')
         var id = $routeParams.cust;
         var custData = {};
         $http({
-            url:localStorage.getItem('ip')+'retailer/customer/detail?uuid='+id,
+            url:localStorage.getItem('ip')+'retailer/customer/detail?uuid='+id+'&sessionID='+sID,
             method:'GET',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -236,20 +236,22 @@ angular.module('service-module')
             console.log(data);
             if(data.result=="1"){
                 custData = data.data;
-                $scope.visitCount = custData.visitCount;
+                $scope.visitCount = custData.visitCount=='null'?0:custData.visitCount;
                 $scope.$parent.step = custData.state;
                 $scope.updating = false;
             }
         });
         function updateServer(){
             $scope.updating = true;
-            $http({
-                url:localStorage.getItem('ip')+'retailer/customer/modifyCustomer?sessionID='+sID+
+            var url = localStorage.getItem('ip')+'retailer/customer/modifyCustomer?sessionID='+sID+
                 '&uuid='+id+'&position='+custData.position+'&name='+custData.name+
-                '&visitCount='+$scope.visitCount+'&mobile='+custData.mobile+'&detail='+custData.detail+'&state='+$scope.$parent.step,
+                '&visitCount='+$scope.visitCount+'&mobile='+custData.mobile+'&detail='+(custData.detail||'')+'&state='+$scope.$parent.step;
+            console.log(url);
+            $http({
+                url:url,
                 method:'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=gb2312'
                 }
             }).success(function(data){
                 if(data.result=='1')$scope.updating=false;
