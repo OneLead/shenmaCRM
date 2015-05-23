@@ -17,12 +17,8 @@ angular.module('marketing-module',['ngRoute','d3','userInfo','chartDataService']
                 controller:'customerDetails'
             })
             .when('/backup',{
-                templateUrl:'/public/templates/marketing/backupLocation.html',
+                templateUrl:'/public/templates/marketing/backup.html',
                 controller:'backup'
-            })
-            .when('/backup/:location/:pt',{
-                templateUrl:'/public/templates/marketing/backupInfo.html',
-                controller:'backupInfo'
             })
             .when('/personal/goals',{
                 templateUrl:'/public/templates/marketing/personalGoals.html',

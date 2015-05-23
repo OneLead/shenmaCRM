@@ -25,6 +25,7 @@
                     //alert('success');
                     if(!xmlHttp.responseText)location.assign('/');
                     var cate = JSON.parse(xmlHttp.responseText);
+                    sessionStorage.setItem('notask',cate.taskList.length==0);
                     var id = cate.role.roleId;
                     sessionStorage.setItem('uuid',cate.uuid);
                     switch(id){

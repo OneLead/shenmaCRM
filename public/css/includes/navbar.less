@@ -1,3 +1,5 @@
+@nav-bg-color:rgb(45,46,47);
+@nearwhite:#e7e7e7;
 .navbar{
   margin-bottom:0;
 }
@@ -5,18 +7,18 @@
   padding:10px 15px;
 }
 .navbar-default{
-  background-color:black;
-  border-color:black;
+  background-color:@nav-bg-color;
+  border-color:@nav-bg-color;
 }
 .navbar-default{
   .navbar-toggle{
     border:none;
-    color:#e7e7e7;
+    color:@nearwhite;
     &:hover,&:focus,&:active{
-      background-color:black;
+      background-color:@nav-bg-color;
     }
     .icon-bar{
-      background-color: #e7e7e7;
+      background-color: @nearwhite;
     }
   }
   .navbar-collapse{
@@ -24,16 +26,16 @@
   }
   .navbar-nav{
     &>li>a,&>li>a:hover,&>li>a:focus{
-      color:#e7e7e7;
+      color:@nearwhite;
     }
     &>.active>a,&>.active>a:hover,&>.active>a:focus{
-      color:#e7e7e7;
+      color:@nearwhite;
       background-color: @gray;
     }
     .open{
       &>a,&>a:hover,&>a:focus{
         background-color: @gray;
-        color:#e7e7e7;
+        color:@nearwhite;
       }
       .dropdown-menu {
         & > li > a {
@@ -44,7 +46,7 @@
         }
         & > .active > a{
           &,&:hover,&:focus{
-            color:#e7e7e7;
+            color:@nearwhite;
             background-color: @gray;
           }
         }
@@ -62,10 +64,3 @@ body>.container,body>.container-fluid{
   margin-top:13px;
 }
 
-header .navbar-collapse{
-  -webkit-transition: all 0.3s linear;
-  -moz-transition: all 0.3s linear;
-  -ms-transition: all 0.3s linear;
-  -o-transition: all 0.3s linear;
-  transition: all 0.3s linear;
-}
