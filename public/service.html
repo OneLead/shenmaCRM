@@ -33,7 +33,7 @@
                         case '1':
                             location.assign('/manager');break;
                         case '2':
-                            sessionStorage.setItem('uuid',cate.uuid);
+                            location.assign('/leader');break;
                     }
                 }
                 else if(xmlHttp.status == 401)location.assign('/');

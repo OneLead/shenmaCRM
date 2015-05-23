@@ -2,6 +2,47 @@
 <html>
 <script>
     //TODO:检查cookie，未登录的话跳到index.html
+    var sID = sessionStorage.getItem('sessionID');
+    if(!sID){
+        location.assign('/');
+    }
+    else{
+        var xmlHttp;
+        function createxmlHttpRequest() {
+            if (window.ActiveXObject) {
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            } else if (window.XMLHttpRequest) {
+                xmlHttp = new XMLHttpRequest();
+            }
+        }
+        function doGet(url){
+// 注意在传参数值的时候最好使用encodeURI处理一下，以防出现乱码
+            createxmlHttpRequest();
+            xmlHttp.open("GET",url);
+            xmlHttp.send();
+            xmlHttp.onreadystatechange = function() {
+                if ((xmlHttp.readyState == 4) && (xmlHttp.status == 200)) {
+                    //alert('success');
+                    if(!xmlHttp.responseText)location.assign('/');
+                    var cate = JSON.parse(xmlHttp.responseText);
+                    UUID = cate.uuid;
+                    var id = cate.role.roleId;
+                    switch(id){
+                        case '3':
+                            location.assign('/marketing');break;
+                        case '1':
+                            location.assign('/manager');break;
+                        case '2':
+                            location.assign('/leader');break;
+                        case '4':
+                            location.assign('/service');break;
+                    }
+                }
+                else if(xmlHttp.status == 401)location.assign('/');
+            }
+        }
+        doGet(localStorage.getItem('ip')+'retailer/user/getUserInfo?sessionID='+sID);
+    }
 </script>
 <head lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
