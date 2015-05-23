@@ -17,6 +17,7 @@ angular.module('marketing-module')
             pageSize = 3,
             currentPageNum = 1;
         $scope.curPage = 1;
+        $scope.nodata = true;
         $scope.prev = function(){
             if($scope.curPage<currentPageNum)$scope.curPage++;
         };
@@ -83,6 +84,7 @@ angular.module('marketing-module')
                 getCharts('goals',newVal[0],newVal[1],newVal[2],pageSize)
                     .success(function(d){
                         if(d.result=='1'){
+                            $scope.nodata = false;
                             var dataset = d.data;
                             currentPageNum = dataset.totalPageNum;
                             console.log(d);
@@ -144,6 +146,9 @@ angular.module('marketing-module')
                                     return y(d) + 15;
                                 });
                         }
+                        else $scope.nodata = true;
+                    }).error(function(e){
+                        $scope.nodata = true;
                     });
                 else if(newVal[1]=='today'){
                     svg.style('display','none');
@@ -161,7 +166,11 @@ angular.module('marketing-module')
                         console.log(data);
                         if(data.length==0)
                             todaysvg.append('text')
-                                .text('今日尚未分配任务！');
+                                .text('今日没有任务，请联系项目主管')
+                                .attr({
+                                    'x':'0',
+                                    'y':'30'
+                                });
                         else{
                             var d = data[0];
                             todaysvg.append('text')
