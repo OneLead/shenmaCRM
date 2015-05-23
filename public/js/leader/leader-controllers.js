@@ -54,6 +54,10 @@ angular.module('leader-module')
             var date = new Date();
             if(d=='tomorrow'){
                 date.setTime(date.getTime()+86400000);
+                var month = date.getMonth();
+                var day = date.getDate();
+                $scope.date = date.getFullYear()+'-'+
+                (month>8?month+1:'0'+(month+1))+'-'+(day>9?day:'0'+day);//存储日期
                 angular.element('label.time.tomorrow').addClass('active');
             }
             else if(d=='today'){

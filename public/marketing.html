@@ -37,6 +37,7 @@
                             location.assign('/service');break;
                     }
                 }
+                else if(xmlHttp.status == 401)location.assign('/');
             }
         }
         doGet(localStorage.getItem('ip')+'retailer/user/getUserInfo?sessionID='+sID);

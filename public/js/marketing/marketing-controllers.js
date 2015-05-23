@@ -83,6 +83,7 @@ angular.module('marketing-module')
         });
     })
     .controller('backup',function($scope,$routeParams,$http,$compile){
+        $rootScope.gotoBackup();
         $('#myModal').modal({
             backdrop:'static',
             keyboard:false,
