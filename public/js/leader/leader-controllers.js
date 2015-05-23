@@ -75,8 +75,7 @@ angular.module('leader-module')
             }
         });
         $http({
-            url:localStorage.getItem('ip')+'retailer/user/query?sessionID='+sID+
-                '&userName='+userName+'&userPass='+userPass+'&aCurPage='+1+'&aPageSize='+100,
+            url:localStorage.getItem('ip')+'retailer/user/queryProjectUser?sessionID='+sID,
             method:'GET',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
