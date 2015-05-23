@@ -1,6 +1,9 @@
 <h4>预览任务列表</h4>
 <div class="container">
     <ul class="task-list row">
+        <li class="task-card col-xs-12 col-sm-6 col-md-4 col-lg-3 new-task" ng-click="new()">
+            <i class="glyphicon glyphicon-plus-sign"></i>
+        </li>
         <li ng-repeat="item in listData.dataList" class="task-card col-xs-12 col-sm-6 col-md-4 col-lg-3">
             <task-card
                     id="item.uuid"

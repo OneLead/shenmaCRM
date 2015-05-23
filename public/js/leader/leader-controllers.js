@@ -50,14 +50,23 @@ angular.module('leader-module')
             flag = 0,
             options = document.forms.task.staff.options,
             userList = [];
-        (function(){
+        $scope.setDate = function(d){
             var date = new Date();
-            date.setTime(date.getTime()+86400000);
-            var month = date.getMonth();
-            var day = date.getDate();
-            $scope.date = date.getFullYear()+'-'+
-            (month>8?month+1:'0'+(month+1))+'-'+(day>9?day:'0'+day);//存储日期
-        })();
+            if(d=='tomorrow'){
+                date.setTime(date.getTime()+86400000);
+                angular.element('label.time.tomorrow').addClass('active');
+            }
+            else if(d=='today'){
+                var month = date.getMonth();
+                var day = date.getDate();
+                $scope.date = date.getFullYear()+'-'+
+                (month>8?month+1:'0'+(month+1))+'-'+(day>9?day:'0'+day);//存储日期
+                angular.element('label.time.today').addClass('active');
+            }
+            else{
+                angular.element('label.time').removeClass('active');
+            }
+        };
         $scope.data = {};//存储当前员工、行销方式等任务信息
         $scope.methods = [];//存储所有行销方式
         $scope.staffs = [];//存储所有员工
@@ -75,8 +84,7 @@ angular.module('leader-module')
             }
         });
         $http({
-            url:localStorage.getItem('ip')+'retailer/user/query?sessionID='+sID+
-                '&userName='+userName+'&userPass='+userPass+'&aCurPage='+1+'&aPageSize='+100,
+            url:localStorage.getItem('ip')+'retailer/user/queryProjectUser?sessionID='+sID,
             method:'GET',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -155,7 +163,9 @@ angular.module('leader-module')
         };
         if(uuid=='new'){
             flag++;
+            $scope.setDate('tomorrow');
             $scope.pastTask = false;
+            $scope.data.salesMode = {uuid:''};
         }
         else{
             $http({
@@ -167,10 +177,29 @@ angular.module('leader-module')
                 }
             }).success(function(data){
                 if(data.result=='1'){
+                    //设置data.data最重要的是salesMode.uuid被初始化
                     $scope.data = data.data;
-                    var createTime = new Date(data.data.createTime.slice(0,10)),
-                        now = new Date();
-                    $scope.pastTask = createTime < now.setDate(now.getDate()+1);
+                    //初始化执行时间
+                    $scope.date = data.data.actionTime;
+                    (function(){
+                        angular.element('label.time').removeClass('active');
+                        var dateSplit = $scope.date.split('-');
+                        var date,today = new Date();
+                        if(today.getFullYear()==dateSplit[0]
+                            &&today.getMonth()+1==dateSplit[1]
+                            &&today.getDate()==dateSplit[2]){
+                            angular.element('label.time.today').addClass('active');
+                        }
+                        else{
+                            today.setDate(today.getDate()+1);
+                            if(today.getFullYear()==dateSplit[0]
+                                &&today.getMonth()+1==dateSplit[1]
+                                &&today.getDate()==dateSplit[2]){
+                                angular.element('label.time.tomorrow').addClass('active');
+                            }
+                        }
+                    })();
+                    //设置被派发任务的有哪些员工（初始化多选列表）
                     var inter = setInterval(function(){
                         if(flag==2){
                             clearInterval(inter);

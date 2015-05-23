@@ -1,14 +1,21 @@
 <form name="task">
     <p>派发执行时间</p>
     <div class="input-group">
-        <span class="input-group-addon" id="basic-addon0">默认第二天</span>
+        <div class="btn-group" data-toggle="buttons">
+            <label ng-click="setDate('today')" class="time today btn btn-primary">
+                <input type="radio" name="options" id="option1" autocomplete="off"> 今天
+            </label>
+            <label ng-click="setDate('tomorrow')" class="time tomorrow btn btn-primary active">
+                <input type="radio" name="options" id="option2" autocomplete="off" checked> 明天{{'（默认）'}}
+            </label>
+        </div>
         <input disabled type="text" class="form-control"
                placeholder="time" aria-describedby="basic-addon0"
                ng-model="date">
     </div>
     <p>设定行销方式</p>
     <div class="btn-group" data-toggle="buttons">
-        <label class="btn btn-primary{{$parent.data.salesMode.uuid==method.uuid?' active':''}}" ng-repeat="method in methods">
+        <label ng-click="$parent.data.salesMode.uuid=method.uuid" class="btn btn-primary{{$parent.data.salesMode.uuid==method.uuid?' active':''}}" ng-repeat="method in methods">
             <input ng-bind="$parent.data.salesMode.uuid" type="radio" name="method" autocomplete="off" value="{{method.uuid}}"> {{method.name}}
         </label>
     </div>
