@@ -1,8 +1,8 @@
-{{data.nickname}}
-<img ng-src="{{data.headimgurl}}" width="120" height="100"/>
-姓名
-手机号码
-工号
-所属城市公司
-所属项目
-所属部门
+<p>微信昵称：{{data.nickname}}</p>
+<p>微信头像：<img ng-src="{{data.headimgurl}}" width="120" height="100"/></p>
+<p>姓名：{{userinfo.name}}</p>
+<p>手机号码：{{userinfo.mobile}}</p>
+<p>工号：{{userinfo.userId}}</p>
+<p>所属城市公司：青岛分公司</p>
+<p>所属项目：{{userinfo.project.name}}</p>
+<p>所属部门：行销拓客部</p>
