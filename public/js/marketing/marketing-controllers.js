@@ -155,7 +155,7 @@ angular.module('marketing-module')
             lat = position.coords.latitude;
             setPtAndAddr(lon,lat);
         });
-        var uuid = sessionStorage.getItem('uuid');
+        //var uuid = sessionStorage.getItem('uuid');
         var gc = new BMap.Geocoder();
         $scope.validatePhone = function(){
             var reg = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
@@ -179,8 +179,8 @@ angular.module('marketing-module')
                 '&position='+cus.pt+','+cus.location+
                 '&name='+cus.name+
                 '&mobile='+cus.phone+
-                '&detail='+cus.description+
-                '&salesUUID='+uuid,
+                '&detail='+cus.detail/*+
+                '&salesUUID='+uuid*/,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
                 }
