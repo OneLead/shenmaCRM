@@ -120,7 +120,7 @@ angular.module('leader-module')
             $http({
                 url:localStorage.getItem('ip')+'retailer/task/'+(uuid=='new'?'create?':'modify?uuid='+uuid+'&')+
                 'sessionID='+sID+
-                '&salesModeUUID='+document.forms.task.method.value+'&budget='+ d.budget+
+                '&salesModeUUID='+$scope.data.salesMode.uuid+'&budget='+ d.budget+
                 '&name='+'写死'+'&area='+ d.area+'&quotaVisit='+ d.quotaVisit+
                 '&quotaDeal='+ d.quotaDeal+'&actionTime='+$scope.date+userListUpdate,
                 method:'POST',
@@ -183,6 +183,7 @@ angular.module('leader-module')
                 if(data.result=='1'){
                     //设置data.data最重要的是salesMode.uuid被初始化
                     $scope.data = data.data;
+                    console.log(data);
                     //初始化执行时间
                     $scope.date = data.data.actionTime;
                     (function(){

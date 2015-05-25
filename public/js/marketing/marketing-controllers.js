@@ -176,11 +176,11 @@ angular.module('marketing-module')
                 url:localStorage.getItem('ip')+'retailer/customer/create',
                 method:'POST',
                 data:'sessionID='+sID+
-                '&position='+cus.pt+','+cus.location+
-                '&name='+cus.name+
-                '&mobile='+cus.phone+
-                '&detail='+cus.detail/*+
-                '&salesUUID='+uuid*/,
+                    '&position='+cus.pt+','+cus.location+
+                    '&name='+cus.name+
+                    '&mobile='+cus.phone+
+                    '&detail='+cus.detail/*+
+                    '&salesUUID='+uuid*/,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
                 }
