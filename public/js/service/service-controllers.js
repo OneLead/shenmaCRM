@@ -243,36 +243,44 @@ angular.module('service-module')
             if(data.result=="1"){
                 custData = data.data;
                 $scope.visitCount = custData.visitCount=='null'?0:custData.visitCount;
-                $scope.$parent.step = custData.state;
+                $scope.$parent.step = +custData.state+1;
                 $scope.updating = false;
             }
         });
         function updateServer(){
             $scope.updating = true;
-            var url = localStorage.getItem('ip')+'retailer/customer/modifyCustomer?sessionID='+sID+
-                '&uuid='+id+'&position='+custData.position+'&name='+custData.name+
-                '&visitCount='+$scope.visitCount+'&mobile='+custData.mobile+'&detail='+(custData.detail||'')+'&state='+$scope.$parent.step;
-            console.log(url);
+            var url = localStorage.getItem('ip')+'retailer/customer/modifyCustomer';
+            var datapost = 'sessionID='+sID+
+                '&uuid='+id+
+                '&position='+custData.position+
+                '&name='+custData.name+
+                '&visitCount='+$scope.visitCount+
+                '&mobile='+custData.mobile+
+                '&detail='+(custData.detail||'')+
+                '&state='+($scope.$parent.step-1);
             $http({
                 url:url,
                 method:'POST',
+                data:datapost,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=gb2312'
                 }
             }).success(function(data){
-                if(data.result=='1')$scope.updating=false;
+                if(data.result=='1'){
+                    $scope.updating=false;
+                }
+                else alert('update cust state failed!');
             });
         }
-        $scope.visitCount = '0';
         $scope.nextStep = function(){
             $scope.$parent.step++;
-            if($scope.$parent.step==1)
+            if($scope.$parent.step=='2')
                 $scope.visitCount = '1';
             updateServer();
         };
         $scope.prevStep = function(){
             $scope.$parent.step--;
-            if($scope.$parent.step==0)
+            if($scope.$parent.step=='1')
                 $scope.visitCount = '0';
             updateServer();
         };
