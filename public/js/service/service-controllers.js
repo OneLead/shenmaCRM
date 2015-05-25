@@ -1,5 +1,5 @@
 angular.module('service-module')
-    .controller('serviceHeaderController',function($scope,$element,$http){
+    .controller('serviceHeaderController',['$scope','$element','$http',function($scope,$element,$http){
         $scope.goto = function(name){
             $element.find('.item').removeClass('active');
             $element.find('.'+name).addClass('active');
@@ -22,8 +22,8 @@ angular.module('service-module')
                 location.assign('/');
             });
         };
-    })
-    .controller('queryController',function($scope,$rootScope,$http){
+    }])
+    .controller('queryController',['$scope','$rootScope','$http',function($scope,$rootScope,$http){
         $rootScope.goto('query');
         $scope.phoneNum = '';
         $scope.method = {};
@@ -89,8 +89,8 @@ angular.module('service-module')
                 return true;
             }
         };
-    })
-    .controller('qresultController',function($scope,$routeParams,$http){
+    }])
+    .controller('qresultController',['$scope','$routeParams','$http',function($scope,$routeParams,$http){
         $scope.dataList = [];
         var pageNum=1,
             idle = true,
@@ -153,8 +153,8 @@ angular.module('service-module')
                 getData(++pageNum);
             }
         });
-    })
-    .controller('listController',function($scope,$rootScope,$http){
+    }])
+    .controller('listController',['$scope','$rootScope','$http',function($scope,$rootScope,$http){
         $rootScope.goto('list');
         $scope.dataList = [];
         $scope.n = 1;
@@ -206,8 +206,8 @@ angular.module('service-module')
                 getData(++pageNum, $scope.n);
             }
         });
-    })
-    .controller('custDetails',function($routeParams,$scope,$http){
+    }])
+    .controller('custDetails',['$routeParams','$scope','$http',function($routeParams,$scope,$http){
         $scope.service = true;
         $scope.data = {};
         var id =  $routeParams.cust;
@@ -224,11 +224,11 @@ angular.module('service-module')
         $scope.changeState = function(){
             location.assign('#/'+id+'/change');
         }
-    })
-    .controller('custChange',function($scope){
+    }])
+    .controller('custChange',['$scope',function($scope){
         $scope.step = 0;
-    })
-    .controller('stepContentCtrl',function($scope,$http,$routeParams){
+    }])
+    .controller('stepContentCtrl',['$scope','$http','$routeParams',function($scope,$http,$routeParams){
         $scope.updating = true;
         var id = $routeParams.cust;
         var custData = {};
@@ -288,4 +288,4 @@ angular.module('service-module')
                 $scope.prevStep();
             updateServer();
         };
-    });
+    }]);
