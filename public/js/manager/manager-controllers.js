@@ -47,6 +47,15 @@ angular.module('manager-module')
                 //alert(data.nickname);
                 $scope.data = data;
             });
+        $http({
+            url:localStorage.getItem('ip')+'retailer/user/getUserInfo?sessionID='+sID,
+            method:'GET',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+            }
+        }).success(function(data){
+            $scope.userinfo = data;
+        });
     })
     .controller('goalsCtrl',function($scope,$rootScope){
         $scope.n = 'visited';
