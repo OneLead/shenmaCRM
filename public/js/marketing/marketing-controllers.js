@@ -82,7 +82,7 @@ angular.module('marketing-module')
             if(idle)getData(pageNum,newVal);
         });
     }])
-    .controller('backup',['$scope','$routeParams','$http','$compile',function($scope,$routeParams,$http,$compile){
+    .controller('backup',['$scope','$routeParams','$http','$compile','$rootScope',function($scope,$routeParams,$http,$compile,$rootScope){
         $rootScope.gotoBackup();
         $('#myModal').modal({
             backdrop:'static',
