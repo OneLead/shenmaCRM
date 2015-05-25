@@ -1,6 +1,6 @@
 //controllers in ‘customer’
 angular.module('marketing-module')
-.controller('custCategoryCtrl',function($scope){
+.controller('custCategoryCtrl',['$scope',function($scope){
     $scope.knockdowns = function(){
         $scope.$parent.n = 3;
     };
@@ -13,8 +13,8 @@ angular.module('marketing-module')
     $scope.pendings = function(){
         $scope.$parent.n = 0;
     };
-})
-.controller('custTableCtrl',function($scope){
+}])
+.controller('custTableCtrl',['$scope',function($scope){
     $scope.category = ['报备时间','到访时间','认筹时间','成交时间'];
     $scope.catContent = ['createTime','visitTime','confirmTime','dealTime'];
-});
+}]);

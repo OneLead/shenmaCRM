@@ -1,5 +1,5 @@
 angular.module('marketing-module')
-    .controller('marketingHeaderController',function($scope,$element,$http){
+    .controller('marketingHeaderController',['$scope','$element','$http',function($scope,$element,$http){
         var $collapse = $element.find('.navbar-collapse');
         $scope.gotoCustomer = function(){
             $element.find('.item').removeClass('active');
@@ -41,9 +41,9 @@ angular.module('marketing-module')
                 location.assign('/');
             });
         };
-    })
+    }])
     //main url path controllers
-    .controller('customer',function($scope,$rootScope,$http){
+    .controller('customer',['$scope','$rootScope','$http',function($scope,$rootScope,$http){
         $scope.n = 0;
         $rootScope.gotoCustomer();
         $scope.dataList = [];
@@ -81,8 +81,8 @@ angular.module('marketing-module')
             $scope.dataList = [];
             if(idle)getData(pageNum,newVal);
         });
-    })
-    .controller('backup',function($scope,$routeParams,$http,$compile){
+    }])
+    .controller('backup',['$scope','$routeParams','$http','$compile',function($scope,$routeParams,$http,$compile){
         $rootScope.gotoBackup();
         $('#myModal').modal({
             backdrop:'static',
@@ -207,7 +207,7 @@ angular.module('marketing-module')
                 angular.element('#upload-info').append($compile(html)($scope));
             });
         };
-    })    //.controller('backup',function($rootScope,$scope){
+    }])    //.controller('backup',function($rootScope,$scope){
     //    $rootScope.gotoBackup();
     //    $scope.location = '请点击地图选择当前位置';
     //    var pt = null;
@@ -235,12 +235,12 @@ angular.module('marketing-module')
     //        });
     //    });
     //})
-    .controller('pGoals',function($scope,$rootScope){
+    .controller('pGoals',['$scope','$rootScope',function($scope,$rootScope){
         $scope.n = 'visited';
         $scope.c = 'month';
         $rootScope.gotoPGoals();
-    })
-    .controller('pInfo',function($scope,$rootScope,$routeParams,$http,getInfo){
+    }])
+    .controller('pInfo',['$scope','$rootScope','$routeParams','$http','getInfo',function($scope,$rootScope,$routeParams,$http,getInfo){
         $rootScope.gotoPInfo();
         $scope.data = {};
         $scope.userinfo = {};
@@ -253,14 +253,14 @@ angular.module('marketing-module')
                 $scope.data = data;
             });
         getInfo($scope);
-    })
-    .controller('pRanking',function($rootScope,$scope){
+    }])
+    .controller('pRanking',['$rootScope','$scope',function($rootScope,$scope){
         $scope.n = 'visited';
         $scope.c = 'all';
         $rootScope.gotoPRanking();
-    })
+    }])
     //secondary url path controllers
-    .controller('customerDetails',function($routeParams,$scope,$http){
+    .controller('customerDetails',['$routeParams','$scope','$http',function($routeParams,$scope,$http){
         //console.log($routeParams);
         var id = $routeParams.customerID;
         $scope.service = false;
@@ -275,4 +275,4 @@ angular.module('marketing-module')
             console.log(data);
             if(data.result=="1")$scope.data = data.data;
         });
-    });
+    }]);
