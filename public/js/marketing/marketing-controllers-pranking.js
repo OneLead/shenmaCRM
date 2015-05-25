@@ -1,5 +1,5 @@
 angular.module('marketing-module')
-    .controller('prankingCategoryCtrl',function($scope){
+    .controller('prankingCategoryCtrl',['$scope',function($scope){
         $scope.day = function(){
             $scope.$parent.c = 'day';
         };
@@ -18,8 +18,8 @@ angular.module('marketing-module')
         $scope.knockdowned = function(){
             $scope.$parent.n = 'knockdowned';
         };
-    })
-    .controller('prankingContentCtrl',function(d3Service,$scope,getCharts){
+    }])
+    .controller('prankingContentCtrl',['d3Service','$scope','getCharts',function(d3Service,$scope,getCharts){
         $scope.pageNum = 1;
         var totalPageNum = 1;//dataset = {
         //    day:{
@@ -219,4 +219,4 @@ angular.module('marketing-module')
                     });
             })
         });
-    });
+    }]);

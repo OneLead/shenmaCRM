@@ -1,14 +1,14 @@
 //controllers in 'pGoals'
 angular.module('marketing-module')
-.controller('pgoalCategoryCtrl',function($scope){
+.controller('pgoalCategoryCtrl',['$scope',function($scope){
     $scope.goto = function(name){
         $scope.$parent.n = name;
     };
     $scope.cate = function(name){
         $scope.$parent.c = name;
     };
-})
-    .controller('pgoalContentCtrl',function(d3Service,$scope,getCharts,$http){
+}])
+    .controller('pgoalContentCtrl',['d3Service','$scope','getCharts','$http',function(d3Service,$scope,getCharts,$http){
         var ways = {
             compete:'竞品拦截',
             leaflet:'地推派单',
@@ -213,4 +213,4 @@ angular.module('marketing-module')
                 }
             },true);
         });
-    });
+    }]);
