@@ -1,7 +1,7 @@
 angular.module('userInfo', [])
     .factory('getInfo', ['$http', function($http) {
         var getinfo = function(s){
-            id = sessionStorage.getItem('sessionID');
+            var id = sessionStorage.getItem('sessionID');
             $http({
                 url:localStorage.getItem('ip')+'retailer/user/getUserInfo?sessionID='+id,
                 method:'GET',
