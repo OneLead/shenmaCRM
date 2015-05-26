@@ -247,7 +247,7 @@ angular.module('service-module')
                 $scope.updating = false;
             }
         });
-        function updateServer(){
+        function updateServer(updateTime){
             $scope.updating = true;
             var url = localStorage.getItem('ip')+'retailer/customer/modifyCustomer';
             var datapost = 'sessionID='+sID+
@@ -257,7 +257,8 @@ angular.module('service-module')
                 '&visitCount='+$scope.visitCount+
                 '&mobile='+custData.mobile+
                 '&detail='+(custData.detail||'')+
-                '&state='+($scope.$parent.step-1);
+                '&state='+($scope.$parent.step-1)+
+                '&isUpdate='+updateTime;
             $http({
                 url:url,
                 method:'POST',
@@ -276,24 +277,24 @@ angular.module('service-module')
             $scope.$parent.step++;
             if($scope.$parent.step=='2')
                 $scope.visitCount = '1';
-            updateServer();
+            updateServer(true);
         };
         $scope.prevStep = function(){
             $scope.$parent.step--;
             if($scope.$parent.step=='1')
                 $scope.visitCount = '0';
-            updateServer();
+            updateServer(false);
         };
         $scope.addCount = function(){
             if(+$scope.visitCount<=60)
                 $scope.visitCount = +$scope.visitCount+1+'';
-            updateServer();
+            updateServer(true);
         };
         $scope.cutCount = function(){
             if(+$scope.visitCount>1)
                 $scope.visitCount = +$scope.visitCount-1+'';
             else if(+$scope.visitCount==1)
                 $scope.prevStep();
-            updateServer();
+            updateServer(true);
         };
     }]);
