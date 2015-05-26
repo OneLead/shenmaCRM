@@ -50,6 +50,42 @@ angular.module('leader-module')
             flag = 0,
             options = document.forms.task.staff.options,
             userList = [];
+        $scope.r = 45;
+        $scope.success = false;
+        var map = new BMap.Map('map',{enableMapClick:false});
+        var gc = new BMap.Geocoder();
+        var overlay = document.createElement('div');
+        overlay.setAttribute('id','overlay');
+        map.getContainer().appendChild(overlay);
+        (function(){
+            map.centerAndZoom('青岛',11);
+            map.addEventListener("click", function(e){
+                //var center = map.getCenter();
+                $scope.data.area = e.point.lng + ',' + e.point.lat;
+                gc.getLocation(e.point, function(rs){
+                                var addComp = rs.addressComponents;
+                                var addr = addComp.province + ", " +
+                                    addComp.city + ", " +
+                                    addComp.district + ", " +
+                                    addComp.street + ", " +
+                                    addComp.streetNumber + " 周边";
+                                $scope.location = addr;
+                                $scope.success = true;
+                                $scope.$apply();
+                            });
+                var cPixel = map.pointToPixel(e.point);
+                var pointTop = map.pixelToPoint(new BMap.Pixel(cPixel.x,cPixel.y-$scope.r));
+                var pointLeft = map.pixelToPoint(new BMap.Pixel(cPixel.x-$scope.r,cPixel.y));
+                console.log('pointTop',pointTop.lng,pointTop.lat);
+                console.log('pointLeft',pointLeft.lng,pointLeft.lat);
+                console.log('center', e.point.lng, e.point.lat);
+                overlay.style.top = cPixel.y;
+                overlay.style.left = cPixel.x;
+                overlay.setAttribute('style',
+                    'top:'+(cPixel.y-$scope.r)+'px;left:'+(cPixel.x-$scope.r)+'px;'+
+                'width:'+2*$scope.r+'px;height:'+2*$scope.r+'px;display:block;');
+            });
+        })();
         $scope.setDate = function(d){
             var date = new Date();
             if(d=='tomorrow'){
@@ -118,10 +154,10 @@ angular.module('leader-module')
                 if(o.selected==true)userListUpdate+='&listUserUUID[]='+o.value;
             }
             $http({
-                url:localStorage.getItem('ip')+'retailer/task/'+(uuid=='new'?'create?':'modify?uuid='+uuid+'&')+
-                'sessionID='+sID+
+                url:localStorage.getItem('ip')+'retailer/task/'+(uuid=='new'?'create':'modify'),
+                data:(uuid=='new'?'':'uuid='+uuid+'&')+'sessionID='+sID+
                 '&salesModeUUID='+$scope.data.salesMode.uuid+'&budget='+ d.budget+
-                '&name='+'写死'+'&area='+ d.area+'&quotaVisit='+ d.quotaVisit+
+                '&name='+ (d.name||'未命名任务')+'&area='+ d.area+','/*+$scope.d+','*/+$scope.location+'&quotaVisit='+ d.quotaVisit+
                 '&quotaDeal='+ d.quotaDeal+'&actionTime='+$scope.date+userListUpdate,
                 method:'POST',
                 headers: {
@@ -151,14 +187,16 @@ angular.module('leader-module')
                 /2[0-9]{3}-[0-1][0-9]-[0-3][0-9]/.test($scope.date) &&
                 /[1-9][0-9]*/.test($scope.data.budget) &&
                 /[1-9][0-9]*/.test($scope.data.quotaDeal) &&
-                /[1-9][0-9]*/.test($scope.data.quotaVisit);
+                /[1-9][0-9]*/.test($scope.data.quotaVisit) &&
+                /.*周边$/.test($scope.location) &&
+                $scope.data.name.length <= 26;
             if(!validate)return validate;
             else {
                 var tag=false;
                 for(var i= 0,l=options.length,o;i<l;i++){
                     o=options[i];
                     if(o.selected==true) {
-                        return uuid == 'new' || /[0-9a-z]{32}/.test($scope.data.salesMode.uuid);
+                        return uuid == 'new' || /[0-9a-zA-Z]{32}/.test($scope.data.salesMode.uuid);
                         tag=true;
                     }
                 }
@@ -170,8 +208,10 @@ angular.module('leader-module')
             $scope.setDate('tomorrow');
             $scope.pastTask = false;
             $scope.data.salesMode = {uuid:''};
+            $scope.location = '请点击／缩放地图，使蓝色圆形覆盖目标区域';
         }
         else{
+            $scope.location = "正在获取行销区域……";
             $http({
                 url:localStorage.getItem('ip')+'retailer/task/find?sessionID='+sessionID+
                     '&uuid='+uuid,
@@ -184,6 +224,9 @@ angular.module('leader-module')
                     //设置data.data最重要的是salesMode.uuid被初始化
                     $scope.data = data.data;
                     console.log(data);
+                    $scope.location = data.data.area.split(',').slice(2).join(',');
+                    $scope.data.area = data.data.area.split(',').slice(0,2).join(',');
+                    $scope.success = true;
                     //初始化执行时间
                     $scope.date = data.data.actionTime;
                     (function(){

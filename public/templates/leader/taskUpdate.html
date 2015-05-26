@@ -1,4 +1,10 @@
 <form name="task">
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon-">任务名称</span>
+        <input type="text" class="form-control"
+               placeholder="未命名任务" aria-describedby="basic-addon-"
+               ng-model="data.name">
+    </div>
     <p>派发执行时间</p>
     <div class="input-group">
         <div class="btn-group" data-toggle="buttons">
@@ -42,9 +48,13 @@
     </div>
     <div class="input-group">
         <span class="input-group-addon" id="basic-addon3">行销区域</span>
-        <input ng-model="data.area" disabled type="text" class="form-control"
+        <input id="map-hidden-input" ng-model="data.area" disabled type="text" class="form-control"
                placeholder="area" aria-describedby="basic-addon3">
+        <div class="input-group-addon" id="map">
+        </div>
     </div>
+    <p ng-bind="location" id="map-location-text"
+       class="alert alert-{{success?'success':'info'}}"></p>
     <button class="btn btn-block{{validate()?'':' disabled'}}" ng-click="submit(data)">立即提交</button>
 </form>
 

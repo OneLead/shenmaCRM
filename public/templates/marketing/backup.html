@@ -1,6 +1,3 @@
-<p ng-bind="customer.location" id="map-location-text"
-   class="alert alert-{{success?'success':'info'}}">
-</p>
 <form novalidate name="custForm" ng-jq>
     <div class="input-group img-group">
         <span class="input-group-addon img-addon-text">
@@ -30,6 +27,9 @@
             </div>
         </span>
     </div>
+    <p ng-bind="customer.location" id="map-location-text"
+       class="alert alert-{{success?'success':'info'}}">
+    </p>
     <div class="input-group">
         <span class="input-group-addon">报备时间</span>
         <input disabled ng-model="customer.time" type="text" class="form-control" placeholder="">

@@ -11,6 +11,7 @@ angular.module('leader-module')
             restrict:'E',
             templateUrl:'/public/templates/leader/taskCard.html',
             scope:{
+                name:'=',
                 id:'=',
                 budget:'=',
                 time:'=',

@@ -1,9 +1,12 @@
-<div class="pull-left">
-    {{time}}
-    {{method}}
+<div class="pull-right task-card-title">
+    <p class="task name">{{name}}</p>
+    <p class="task time">{{time}}</p>
+    <p class="task method">{{method}}</p>
 </div>
-<div>
-    {{budget}}
-    {{area}}
-    <span ng-repeat="name in names">{{name.name}}</span>
+<div class="task-card-content">
+    <p class="task budget">预算金额：{{budget}}</p>
+    <p class="task area">行销区域：{{area}}</p>
+    <p class="task staff">执行人员：
+        <span ng-repeat="name in names">{{name.name}}、</span>
+    </p>
 </div>
