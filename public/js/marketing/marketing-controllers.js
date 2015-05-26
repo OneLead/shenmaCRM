@@ -179,7 +179,7 @@ angular.module('marketing-module')
                     '&position='+cus.pt+','+cus.location+
                     '&name='+cus.name+
                     '&mobile='+cus.phone+
-                    '&detail='+cus.detail/*+
+                    '&detail='+cus.detail||''/*+
                     '&salesUUID='+uuid*/,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -207,34 +207,7 @@ angular.module('marketing-module')
                 angular.element('#upload-info').append($compile(html)($scope));
             });
         };
-    }])    //.controller('backup',function($rootScope,$scope){
-    //    $rootScope.gotoBackup();
-    //    $scope.location = '请点击地图选择当前位置';
-    //    var pt = null;
-    //    $scope.success = false;
-    //    $scope.next = function(){
-    //        location.assign('#/backup/'+$scope.location+'/'+pt);
-    //    };
-    //    var gc = new BMap.Geocoder();
-    //    navigator.geolocation.getCurrentPosition(function(position){
-    //        var point = new BMap.Point(position.coords.longitude,position.coords.latitude);
-    //    });
-    //    map.addEventListener("click", function(e){
-    //        var point = e.point;
-    //        pt = [point.lng,point.lat];
-    //        gc.getLocation(point, function(rs){
-    //            var addComp = rs.addressComponents;
-    //            var addr = addComp.province + ", " +
-    //                addComp.city + ", " +
-    //                addComp.district + ", " +
-    //                addComp.street + ", " +
-    //                addComp.streetNumber;
-    //            $scope.location = addr;
-    //            $scope.success = true;
-    //            $scope.$apply();
-    //        });
-    //    });
-    //})
+    }])
     .controller('pGoals',['$scope','$rootScope',function($scope,$rootScope){
         $scope.n = 'visited';
         $scope.c = 'month';
