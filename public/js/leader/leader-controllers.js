@@ -27,21 +27,33 @@ angular.module('leader-module')
     .controller('taskListCtrl',function($scope,$rootScope,$http){
         var sessionID = sessionStorage.getItem('sessionID');
         var curPage = 1;
+        var totalPageNum = 1;
         $rootScope.goto('task');
+        $scope.loading = true;
         $scope.new = function(){
             location.assign('#/task/update/new');
         };
         $scope.listData = [];
-        $http({
-            url:localStorage.getItem('ip')+'retailer/task/query?sessionID='+sessionID+
-                '&aCurPage='+curPage+'&aPageSize='+10,
-            method:'GET',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+        function loadNewData(){
+            $http({
+                url:localStorage.getItem('ip')+'retailer/task/query?sessionID='+sessionID+
+                '&aCurPage='+(curPage++)+'&aPageSize='+10,
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                }
+            }).success(function(data){
+                $scope.listData = $scope.listData.concat(data.data.dataList);
+                totalPageNum = data.data.totalPageNum;
+                $scope.loading = false;
+            });
+        }
+        loadNewData();
+        $(document).on('scroll',function(e){
+            if($(document).scrollTop()+screen.height-$(document).height()>-1 && curPage<=totalPageNum && !$scope.loading){
+                $scope.loading = true;
+                loadNewData();
             }
-        }).success(function(data){
-            console.log(data);
-            $scope.listData = data.data;
         });
     })
     .controller('taskUpdateCtrl',function($http,$routeParams,$scope,$compile){
