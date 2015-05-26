@@ -295,6 +295,6 @@ angular.module('service-module')
                 $scope.visitCount = +$scope.visitCount-1+'';
             else if(+$scope.visitCount==1)
                 $scope.prevStep();
-            updateServer(true);
+            updateServer(false);
         };
     }]);
