@@ -179,7 +179,7 @@ angular.module('marketing-module')
                     '&position='+cus.pt+','+cus.location+
                     '&name='+cus.name+
                     '&mobile='+cus.phone+
-                    '&detail='+(cus.detail||'')/*+
+                    '&detail='+(cus.detail||'空')/*+
                     '&salesUUID='+uuid*/,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
