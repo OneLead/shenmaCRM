@@ -69,35 +69,52 @@ angular.module('leader-module')
         var overlay = document.createElement('div');
         overlay.setAttribute('id','overlay');
         map.getContainer().appendChild(overlay);
-        (function(){
-            map.centerAndZoom('青岛',11);
-            map.addEventListener("click", function(e){
-                //var center = map.getCenter();
-                $scope.data.area = e.point.lng + ',' + e.point.lat;
-                gc.getLocation(e.point, function(rs){
-                                var addComp = rs.addressComponents;
-                                var addr = addComp.province + ", " +
-                                    addComp.city + ", " +
-                                    addComp.district + ", " +
-                                    addComp.street + ", " +
-                                    addComp.streetNumber + " 周边";
-                                $scope.location = addr;
-                                $scope.success = true;
-                                $scope.$apply();
-                            });
-                var cPixel = map.pointToPixel(e.point);
-                var pointTop = map.pixelToPoint(new BMap.Pixel(cPixel.x,cPixel.y-$scope.r));
-                var pointLeft = map.pixelToPoint(new BMap.Pixel(cPixel.x-$scope.r,cPixel.y));
-                console.log('pointTop',pointTop.lng,pointTop.lat);
-                console.log('pointLeft',pointLeft.lng,pointLeft.lat);
-                console.log('center', e.point.lng, e.point.lat);
-                overlay.style.top = cPixel.y;
-                overlay.style.left = cPixel.x;
-                overlay.setAttribute('style',
-                    'top:'+(cPixel.y-$scope.r)+'px;left:'+(cPixel.x-$scope.r)+'px;'+
+        function drawCircleAndLogDiff(lngLatPoint,log){
+            var cPixel = map.pointToPixel(lngLatPoint);
+            if(log) {
+                var pointTop = map.pixelToPoint(new BMap.Pixel(cPixel.x, cPixel.y - $scope.r));
+                var pointLeft = map.pixelToPoint(new BMap.Pixel(cPixel.x - $scope.r, cPixel.y));
+                console.log('pointTop', pointTop.lng, pointTop.lat);
+                console.log('pointLeft', pointLeft.lng, pointLeft.lat);
+                console.log('center', lngLatPoint.lng, lngLatPoint.lat);
+            }
+            overlay.style.top = cPixel.y;
+            overlay.style.left = cPixel.x;
+            overlay.setAttribute('style',
+                'top:'+(cPixel.y-$scope.r)+'px;left:'+(cPixel.x-$scope.r)+'px;'+
                 'width:'+2*$scope.r+'px;height:'+2*$scope.r+'px;display:block;');
+        }
+        map.addEventListener("click", function(e){
+            //var center = map.getCenter();
+            $scope.data.area = e.point.lng + ',' + e.point.lat;
+            gc.getLocation(e.point, function(rs){
+                            var addComp = rs.addressComponents;
+                            var addr = addComp.province + ", " +
+                                addComp.city + ", " +
+                                addComp.district + ", " +
+                                addComp.street + ", " +
+                                addComp.streetNumber + " 周边";
+                            $scope.location = addr;
+                            $scope.success = true;
+                            $scope.$apply();
+                        });
+            drawCircleAndLogDiff(e.point,true);
+            makeCircleFollow();
+        });
+        function makeCircleFollow() {
+            var temp = $scope.data.area.split(',');
+            var point = new BMap.Point(temp[0], temp[1]);
+            map.addEventListener("moveend", function () {
+                drawCircleAndLogDiff(point,false);
             });
-        })();
+            map.addEventListener("zoomend", function () {
+                drawCircleAndLogDiff(point,true);
+            });
+            map.addEventListener("touchmove",function(e){
+                if(e.touches.length==1)//console.log(e.target.offsetX, e.target.offsetY);
+                drawCircleAndLogDiff(point,false);
+            });
+        }
         $scope.setDate = function(d){
             var date = new Date();
             if(d=='tomorrow'){
@@ -169,7 +186,7 @@ angular.module('leader-module')
                 url:localStorage.getItem('ip')+'retailer/task/'+(uuid=='new'?'create':'modify'),
                 data:(uuid=='new'?'':'uuid='+uuid+'&')+'sessionID='+sID+
                 '&salesModeUUID='+$scope.data.salesMode.uuid+'&budget='+ d.budget+
-                '&name='+ (d.name||'未命名任务')+'&area='+ d.area+','/*+$scope.d+','*/+$scope.location+'&quotaVisit='+ d.quotaVisit+
+                '&name='+ (d.name||'未命名任务')+'&area='+ d.area+','+map.getZoom()+','/*+$scope.d+','*/+$scope.location+'&quotaVisit='+ d.quotaVisit+
                 '&quotaDeal='+ d.quotaDeal+'&actionTime='+$scope.date+userListUpdate,
                 method:'POST',
                 headers: {
@@ -177,8 +194,9 @@ angular.module('leader-module')
                 }
             }).success(function(data){
                 //console.log('update success',data);
+                var html;
                 if(data.result=='1'){
-                    var html = '<span>上传成功！<a ng-click="'+
+                    html = '<span>上传成功！<a ng-click="'+
                         "quitTo(true)"+
                         '">点击</a>跳转到任务列表界面</span>';
                     angular.element('#upload-info').append($compile(html)($scope));
@@ -186,7 +204,7 @@ angular.module('leader-module')
                     //location.assign('#/customer');
                 }
                 else {
-                    var html = '<span>存入数据库失败，请点击<a ng-click="'+
+                    html = '<span>存入数据库失败，请点击<a ng-click="'+
                         "quitTo(false)" +
                         '">重新登记任务信息</a></span>';
                     angular.element('#upload-info').append($compile(html)($scope));
@@ -204,23 +222,23 @@ angular.module('leader-module')
                 $scope.data.name.length <= 26;
             if(!validate)return validate;
             else {
-                var tag=false;
                 for(var i= 0,l=options.length,o;i<l;i++){
                     o=options[i];
                     if(o.selected==true) {
                         return uuid == 'new' || /[0-9a-zA-Z]{32}/.test($scope.data.salesMode.uuid);
-                        tag=true;
                     }
                 }
-                if(!tag)return false;
+                return false;
             }
         };
         if(uuid=='new'){
             flag++;
+            $scope.data.name = '';
             $scope.setDate('tomorrow');
             $scope.pastTask = false;
             $scope.data.salesMode = {uuid:''};
             $scope.location = '请点击／缩放地图，使蓝色圆形覆盖目标区域';
+            map.centerAndZoom('北京',11);
         }
         else{
             $scope.location = "正在获取行销区域……";
@@ -236,9 +254,14 @@ angular.module('leader-module')
                     //设置data.data最重要的是salesMode.uuid被初始化
                     $scope.data = data.data;
                     console.log(data);
-                    $scope.location = data.data.area.split(',').slice(2).join(',');
-                    $scope.data.area = data.data.area.split(',').slice(0,2).join(',');
+                    var temp = data.data.area.split(',');
+                    $scope.location = temp.slice(3).join(',');
+                    $scope.data.area = temp.slice(0,2).join(',');
                     $scope.success = true;
+                    var pointGot = new BMap.Point(+temp[0],+temp[1]);
+                    map.centerAndZoom(pointGot,+temp[2]);
+                    drawCircleAndLogDiff(pointGot,false);
+                    makeCircleFollow();
                     //初始化执行时间
                     $scope.date = data.data.actionTime;
                     (function(){
