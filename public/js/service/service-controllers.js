@@ -168,7 +168,7 @@ angular.module('service-module')
         $scope.$watch('n',function(newVal){
             pageNum = 1;
             $scope.dataList = [];
-            getData(pageNum, newVal);
+            getData(pageNum, newVal-1);
         });
         function getData(pageNum, cat){
             idle = false;
@@ -190,10 +190,10 @@ angular.module('service-module')
         }
         $scope.stateParse = function(state){
             switch(state){
-                case '1': return '未';break;
-                case '2': return '访';break;
-                case '3': return '筹';break;
-                case '4': return '成';break;
+                case '0': return '未';break;
+                case '1': return '访';break;
+                case '2': return '筹';break;
+                case '3': return '成';break;
                 default: return '错';
             }
         };
@@ -203,7 +203,7 @@ angular.module('service-module')
             var t = e.target;
             if(idle && pageNum<totalPageNum && t.scrollHeight-t.scrollTop-5 <= +t.style.height.slice(0,-2)){
                 console.log('load new data');
-                getData(++pageNum, $scope.n);
+                getData(++pageNum, $scope.n－1);
             }
         });
     }])
