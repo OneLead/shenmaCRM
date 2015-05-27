@@ -203,7 +203,7 @@ angular.module('service-module')
             var t = e.target;
             if(idle && pageNum<totalPageNum && t.scrollHeight-t.scrollTop-5 <= +t.style.height.slice(0,-2)){
                 console.log('load new data');
-                getData(++pageNum, $scope.n－1);
+                getData(++pageNum, $scope.n-1);
             }
         });
     }])
