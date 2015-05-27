@@ -55,7 +55,7 @@
         <div class="input-group-addon" id="map">
         </div>
     </div>
-    <p ng-bind="location" id="map-location-text"
+    <p ng-bind="location+''+radius" id="map-location-text"
        class="alert alert-{{success?'success':'info'}}"></p>
     <button class="btn btn-block{{validate()?'':' disabled'}}" ng-click="submit(data)">立即提交</button>
 </form>

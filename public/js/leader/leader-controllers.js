@@ -1,3 +1,28 @@
+function rad(d)
+{
+    return d * Math.PI / 180.0;
+}
+
+function GetDistance( lat1,  lng1,  lat2,  lng2)
+{
+    var s;
+    if( ( Math.abs( lat1 ) > 90  ) ||(  Math.abs( lat2 ) > 90 ) ){
+        s = '纬度不正确';
+    }
+    else if( ( Math.abs( lng1 ) > 180  ) ||(  Math.abs( lng2 ) > 180 ) ){
+        s = '经度不正确';
+    }else {
+        var radLat1 = rad(lat1);
+        var radLat2 = rad(lat2);
+        var a = radLat1 - radLat2;
+        var b = rad(lng1) - rad(lng2);
+        s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) +
+        Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+        s = s * 6378.137;// EARTH_RADIUS;
+        s = Math.round(s * 10000) / 10000;
+    }
+    return s;
+}
 angular.module('leader-module')
     .controller('leaderHeaderController',function($scope,$element,$http){
         $scope.goto = function(name1,name2){
@@ -63,20 +88,24 @@ angular.module('leader-module')
             options = document.forms.task.staff.options,
             userList = [];
         $scope.r = 45;
+        $scope.radius = '';
         $scope.success = false;
         var map = new BMap.Map('map',{enableMapClick:false});
         var gc = new BMap.Geocoder();
         var overlay = document.createElement('div');
         overlay.setAttribute('id','overlay');
         map.getContainer().appendChild(overlay);
+        var zoomControl=new BMap.ZoomControl();
+        map.addControl(zoomControl);//添加缩放控件
         function drawCircleAndLogDiff(lngLatPoint,log){
             var cPixel = map.pointToPixel(lngLatPoint);
             if(log) {
                 var pointTop = map.pixelToPoint(new BMap.Pixel(cPixel.x, cPixel.y - $scope.r));
                 var pointLeft = map.pixelToPoint(new BMap.Pixel(cPixel.x - $scope.r, cPixel.y));
-                console.log('pointTop', pointTop.lng, pointTop.lat);
-                console.log('pointLeft', pointLeft.lng, pointLeft.lat);
-                console.log('center', lngLatPoint.lng, lngLatPoint.lat);
+                //console.log('竖直半径：'++'Km');
+                //console.log('水平半径：'++'Km');
+                $scope.radius=Math.round((GetDistance(pointTop.lat,pointTop.lng,lngLatPoint.lat,lngLatPoint.lng)+GetDistance(pointLeft.lat,pointLeft.lng,lngLatPoint.lat,lngLatPoint.lng))*500)+'米';
+                $scope.$apply();
             }
             overlay.style.top = cPixel.y;
             overlay.style.left = cPixel.x;
@@ -260,7 +289,7 @@ angular.module('leader-module')
                     $scope.success = true;
                     var pointGot = new BMap.Point(+temp[0],+temp[1]);
                     map.centerAndZoom(pointGot,+temp[2]);
-                    drawCircleAndLogDiff(pointGot,false);
+                    drawCircleAndLogDiff(pointGot,true);
                     makeCircleFollow();
                     //初始化执行时间
                     $scope.date = data.data.actionTime;
