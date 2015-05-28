@@ -64,8 +64,12 @@ angular.module('leader-module')
             }
         }
         $scope.$parent.$watch('[c,n]',function(nV){
-            console.log(nV);
-            console.log($scope.table);
-            $scope.table.ajax.url('http://115.29.151.151:8080/retailer/customer/queryReportNew?aCurPage=1&aPageSize=101&reportType=2&dateType='+nV[0]+'&state='+parseState(nV[1])+'&sessionID='+sID).load();
+            $scope.nodata = true;
+            $scope.table.ajax
+                .url('http://115.29.151.151:8080/retailer/customer/queryReportNew?aCurPage=1&aPageSize=101&reportType=2&dateType='+nV[0]+'&state='+parseState(nV[1])+'&sessionID='+sID)
+                .load(function(d){
+                    $scope.nodata = false;
+                    $scope.$apply();
+                },false);
         },true);
     });
