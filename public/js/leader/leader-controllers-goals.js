@@ -11,7 +11,6 @@ angular.module('leader-module')
         $scope.dtOptions = {
             "dom":'ptf',
             "lengthChange":3,
-            "sAjaxSource": 'http://115.29.151.151:8080/retailer/customer/queryReportNew?aCurPage=1&aPageSize=101&reportType=2&dateType=month&state=1&sessionID='+sID,
             "aoColumns": [
                 { "mData": "date" },
                 { "mData": "fact" },
