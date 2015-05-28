@@ -7,11 +7,8 @@ angular.module('datatablesDirectives', []).directive('datatable', function ($htt
         restrict: 'A',
 
         link: function ($scope, $elem, attrs) {
-            var options = {
-            };
-
             // Start with the defaults. Change this to your defaults.
-            options = {
+            var options = {
                 // "bProcessing": true,
                 // "bServerSide": true,
                 // "sPaginationType": "full_numbers",
@@ -79,20 +76,16 @@ angular.module('datatablesDirectives', []).directive('datatable', function ($htt
                 angular.extend(options, $scope.dtOptions);
             }
 
-            // Just some basic validation.
-            if (typeof options['sAjaxSource'] === 'undefined') {
-
-                throw "Ajax Source not defined! Use sajaxsource='/api/v1/blabla'";
-            }
 
             // for Angular http inceptors
-            if (typeof options['fnServerData'] === 'undefined') {
-                $scope.dtOptions['fnServerData'] = function (sSource, aoData, resultCb) {
-                    $http.get(sSource, aoData).then(function (result) {
-                        resultCb(result.data);
-                    });
-                };
-            }
+            //if (typeof options['fnServerData'] === 'undefined') {
+            //    $scope.dtOptions['fnServerData'] = function (sSource, aoData, resultCb) {
+            //        $http.get(sSource, aoData).then(function (result) {
+            //            resultCb(result.data);
+            //            $scope.nodata = false;
+            //        });
+            //    };
+            //}
 
             // Get the column options, put it in a aocolumn object.
             // Obviously, mdata is the only one required.
@@ -121,7 +114,6 @@ angular.module('datatablesDirectives', []).directive('datatable', function ($htt
             // Load the datatable!
             $scope.table = $elem.dataTable(options).api();
             //console.log(options);
-            console.log($scope.table.search);
         }
     }
 });

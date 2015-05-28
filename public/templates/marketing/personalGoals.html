@@ -18,12 +18,20 @@
         </div>
     </div>
     <div ng-controller="pgoalContentCtrl" id="pgoalContent">
-        <nav ng-show="n!=='today'">
-            <ul class="pager">
-                <li class="previous" ng-click="prev()"><a href=""><span aria-hidden="true">&larr;</span> Older</a></li>
-                <li class="next" ng-click="next()"><a href="">Newer <span aria-hidden="true">&rarr;</span></a></li>
-            </ul>
-        </nav>
+        <div ng-show="n=='today'" ng-bind-html="todayHtml"></div>
+        <div ng-hide="n=='today'">
+            <nav>
+                <ul class="pager">
+                    <li class="previous" ng-click="prev()"><a href=""><span aria-hidden="true">&larr;</span> Older</a></li>
+                    <li class="next" ng-click="next()"><a href="">Newer <span aria-hidden="true">&rarr;</span></a></li>
+                </ul>
+            </nav>
+            <table datatable class="table table-striped m-b-none">
+                <thead><tr>
+                    <th>时间段</th><th>目标人数</th><th>实际人数</th>
+                </tr></thead>
+            </table>
+        </div>
         <div id="no-data" ng-show="nodata">暂无数据</div>
     </div>
 </section>
