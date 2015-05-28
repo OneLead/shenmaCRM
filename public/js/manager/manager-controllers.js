@@ -36,7 +36,7 @@ angular.module('manager-module')
             });
         };
     })
-    .controller('managerCtrl',function($scope,$rootScope,$routeParams,$http) {
+    .controller('managerCtrl',function($scope,$rootScope,$routeParams,$http,getInfo) {
         $rootScope.goto('manager');
         $scope.data = {};
         $http({
@@ -47,15 +47,7 @@ angular.module('manager-module')
                 //alert(data.nickname);
                 $scope.data = data;
             });
-        $http({
-            url:localStorage.getItem('ip')+'retailer/user/getUserInfo?sessionID='+sID,
-            method:'GET',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-            }
-        }).success(function(data){
-            $scope.userinfo = data;
-        });
+        getInfo($scope);
     })
     .controller('goalsCtrl',function($scope,$rootScope){
         $scope.n = 'visited';

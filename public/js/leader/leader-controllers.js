@@ -352,7 +352,7 @@ angular.module('leader-module')
         $scope.c = 'month';
         $rootScope.goto('project','goals');
     })
-    .controller('leaderCtrl',function($scope,$rootScope,$routeParams,$http){
+    .controller('leaderCtrl',function($scope,$rootScope,$routeParams,$http,getInfo){
         $rootScope.goto('project','leader');
         $scope.data = {};
         $http({
@@ -363,4 +363,5 @@ angular.module('leader-module')
                 //alert(data.nickname);
                 $scope.data = data;
             });
+        getInfo($scope);
     });
