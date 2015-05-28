@@ -18,11 +18,6 @@ angular.module('marketing-module')
                 { "mData": "goal" }
             ]
         };
-        var ways = {
-            compete:'竞品拦截',
-            leaflet:'地推派单',
-            community:'社区拓客'
-            };
         function parseState(n){
             switch(n){
                 case 'visited':return 1;
@@ -35,14 +30,12 @@ angular.module('marketing-module')
         //$scope.next = function(){
         //    if($scope.curPage>1)$scope.curPage--;
         //};
-        console.log($scope);
         $scope.$watch('[$parent.c,$parent.n]',function(nV){
             $scope.nodata = true;
             if(nV[1]!='today'){
                 $scope.table.ajax
                     .url('http://115.29.151.151:8080/retailer/customer/queryReportNew?aCurPage=1&aPageSize=101&reportType=2&dateType='+nV[0]+'&state='+parseState(nV[1])+'&sessionID='+sID)
                     .load(function(d){
-                        console.log(d);
                         $scope.nodata=false;
                         $scope.$apply();
                     },false);
@@ -66,7 +59,8 @@ angular.module('marketing-module')
                             '到访目标：' + d.quotaVisit + '<br>' +
                             '成交目标：' + d.quotaDeal + '<br>' +
                             '预算：' + d.budget + '<br>' +
-                            '行销区域：' + d.area.split(',').slice(3).join(','));
+                            '行销区域：' + d.area.split(',').slice(3).join(',')
+                        );
                     }
                     $scope.nodata = false;
                 });
