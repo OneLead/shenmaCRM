@@ -37,6 +37,6 @@ app.post('/getWechatInfo/:code',function(reque,response){
         });
     });
 });
-app.listen(8000,function(){
-    console.log('Running Express on 8000');
+app.listen(80,function(){
+    console.log('Running Express on 80');
 });
