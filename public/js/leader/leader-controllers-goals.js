@@ -94,7 +94,8 @@ angular.module('leader-module')
             }
         };
         $scope.dtOptions = {
-            "dom":'ftp',
+            "dom":'ptf',
+            "lengthChange":3,
             "sAjaxSource": 'http://115.29.151.151:8080/retailer/customer/queryReportNew?aCurPage=1&aPageSize=101&reportType=2&dateType=month&state=1&sessionID='+sID,
             "aoColumns": [
                 { "mData": "date" },
@@ -149,7 +150,7 @@ angular.module('leader-module')
         }
         $scope.$parent.$watch('[c,n]',function(nV){
             console.log(nV);
-            $scope.dtOptions.sAjaxSource = 'http://115.29.151.151:8080/retailer/customer/queryReportNew?aCurPage=1&aPageSize=101&reportType=2&dateType='+$scope.$parent.c+'&state='+parseState($scope.$parent.n)+'&sessionID='+sID;
-            $('table.m-b-none').dataTable($scope.dtOptions);
+            console.log($scope.table);
+            $scope.table.ajax.url('http://115.29.151.151:8080/retailer/customer/queryReportNew?aCurPage=1&aPageSize=101&reportType=2&dateType='+$scope.$parent.c+'&state='+parseState($scope.$parent.n)+'&sessionID='+sID).load();
         },true);
     });
