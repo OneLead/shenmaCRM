@@ -1,4 +1,4 @@
-angular.module('manager-module',['ngRoute','d3'])
+angular.module('manager-module',['ngRoute','datatablesDirectives'])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider
             .when('/',{

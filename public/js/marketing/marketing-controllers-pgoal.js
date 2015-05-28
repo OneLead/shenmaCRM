@@ -8,7 +8,7 @@ angular.module('marketing-module')
         $scope.$parent.c = name;
     };
 }])
-    .controller('pgoalContentCtrl',['d3Service','$scope','getCharts','$http',function(d3Service,$scope,getCharts,$http){
+    .controller('pgoalContentCtrl',['$scope','getCharts','$http',function(d3Service,$scope,getCharts,$http){
         var ways = {
             compete:'竞品拦截',
             leaflet:'地推派单',

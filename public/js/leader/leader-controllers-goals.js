@@ -7,23 +7,14 @@ angular.module('leader-module')
             $scope.$parent.n = name;
         };
     })
-    .controller('goalsContentCtrl',function($scope,d3Service){
-        var dataset = {
+    .controller('goalsContentCtrl',function($scope){
+        $scope.dataset = {
             visited:{
-                month: [
-                    [
-                        '2014-04',
-                        {fact: 1998, goal: 1505}
-                    ],
-                    [
-                        '2014-05',
-                        {fact: 1300, goal: 1355}
-                    ],
-                    [
-                        '2014-06',
-                        {fact: 1431, goal: 1420}
-                    ]
-                ],
+                month: {
+                    '2014-04': {fact: 1998, goal: 1505},
+                    '2014-05': {fact: 1300, goal: 1355},
+                    '2014-06': {fact: 1431, goal: 1420}
+                },
                 week:
                     [
                         [
@@ -102,108 +93,63 @@ angular.module('leader-module')
                     ]
             }
         };
-        d3Service.d3().then(function(d3){
-            var svg = d3.select("#goalsContent")
-                .append('svg')
-                .attr('width',240+38*2)
-                .attr('height',230);
-            var x = d3.scale.ordinal()
-                .rangePoints([0, 202]);
-            var y = d3.scale.linear()
-                .rangeRound([200,0],1);
-            var xAxis = d3.svg.axis()
-                .orient("bottom");
-            var yAxis = d3.svg.axis()
-                .orient("left");
-            svg.append('g')
-                .attr('class','x axis')
-                .attr('transform','translate(76,210)')
-                .call(xAxis);
-            svg.append('g')
-                .attr('class','y axis')
-                .attr('transform','translate(38,10)')
-                .call(yAxis);
-            var period = svg.selectAll('.period')
-                .data([0,1,2])
-                .enter().append('g')
-                .attr('class','period');
-            period.selectAll('rect')
-                .data(['fact','goal'])
-                .enter().append('rect')
-                .attr({
-                    'width':38,
-                    'x':function(d,i){return i*38;},
-                    'fill':function(d,i){
-                        return i?'rgb(0,0,199)':'rgb(0,150,150)';
-                    }
-                });
-            period.selectAll('text')
-                .data(['fact','goal'])
-                .enter().append('text')
-                .attr({
-                    'x': function (d, i) {
-                        return i * 38 + 5;
-                    },
-                    'stroke':'white',
-                    'fill':'white'
-                });
-            $scope.$parent.$watch('[c,n]',function(newVal){
-                var data = dataset[newVal[1]][newVal[0]];
-                xMap = data.map(function (d) {
-                    return d[0];
-                });
-                yMap = [
-                    0,
-                    d3.max(
-                        data,
-                        function (d) {
-                            return d3.max(
-                                [d[1]['fact'], d[1]['goal']],
-                                function (d) {
-                                    return d;
-                                }
-                            );
-                        }
-                    )
-                ];
-                x.domain(xMap);
-                y.domain(yMap);
-                xAxis.scale(x);
-                yAxis.scale(y);
-                svg.select('g.x.axis')
-                    .call(xAxis);
-                svg.select('g.y.axis')
-                    .call(yAxis);
-                period.data(data)
-                    .transition()
-                    .attr('transform', function (d) {
-                        return "translate(" + (x(d[0]) + 38) + ",10)";
-                    });
-                period.selectAll('rect')
-                    .data(function (d) {
-                        return [d[1]['fact'], d[1]['goal']];
-                    })
-                    .transition()
-                    .attr({
-                        'y': function (d) {
-                            return y(d);
-                        },
-                        'height': function (d) {
-                            return 200 - y(d);
-                        }
-                    });
-                period.selectAll('text')
-                    .data(function (d) {
-                        return [d[1]['fact'], d[1]['goal']];
-                    })
-                    .transition()
-                    .text(function (d) {
-                        return d;
-                    })
-                    .attr('y', function (d) {
-                        return y(d) + 15;
-                    });
-            },true);
-        });
-
+        $scope.dtOptions = {
+            "dom":'ftp',
+            "sAjaxSource": 'http://115.29.151.151:8080/retailer/customer/queryReportNew?aCurPage=1&aPageSize=101&reportType=2&dateType=month&state=1&sessionID='+sID,
+            "aoColumns": [
+                { "mData": "date" },
+                { "mData": "fact" },
+                { "mData": "goal" }
+            ]
+        };
+        //$scope.dtOptions = {
+        //    "bProcessing": true,
+        //    "bServerSide": true,
+        //    iDisplayLength: 5,
+        //    sAjaxSource: 'http://115.29.151.151:8080/retailer/customer/queryReport?sessionID='+ sID,
+        //    sAjaxDataProp: 'aaData',
+        //
+        //    sPaginationType: "full_numbers",
+        //    "aoColumns":
+        //        [
+        //            { "mData": "#" },
+        //            { "mData": "时间段",
+        //                "sClass": "center",
+        //                "mRender": function(data,type,full) {
+        //                    return '<a class="emplyeeInfoLink" href="javascript:;">阿司法所</a>';
+        //                }
+        //            },
+        //            { "mData": "目标人数" },
+        //            { "mData": "实际成交" }
+        //        ],
+        //    /*"aoColumnDefs":[
+        //     {
+        //     "aTargets":[4],
+        //     "mData": null
+        //     }
+        //     ],*/
+        //    "fnServerData": function( sUrl, aoData, fnCallback, oSettings ) {
+        //        oSettings.jqXHR = $.ajax({
+        //            "url": sUrl,
+        //            beforeSend: function(xhr) {
+        //                xhr.withCredentials = true;
+        //            },
+        //            "data": aoData,
+        //            "type": 'get',
+        //            "success": fnCallback,
+        //            "cache": false
+        //        });
+        //    }
+        //}
+        function parseState(n){
+            switch(n){
+                case 'visited':return 1;
+                case 'knockdowned':return 3;
+            }
+        }
+        $scope.$parent.$watch('[c,n]',function(nV){
+            console.log(nV);
+            $scope.dtOptions.sAjaxSource = 'http://115.29.151.151:8080/retailer/customer/queryReportNew?aCurPage=1&aPageSize=101&reportType=2&dateType='+$scope.$parent.c+'&state='+parseState($scope.$parent.n)+'&sessionID='+sID;
+            $('table.m-b-none').dataTable($scope.dtOptions);
+        },true);
     });

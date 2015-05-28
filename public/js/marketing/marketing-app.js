@@ -1,4 +1,4 @@
-angular.module('marketing-module',['ngRoute','d3','userInfo','chartDataService'])
+angular.module('marketing-module',['ngRoute','userInfo','datatablesDirectives'])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider
             .when('/',{

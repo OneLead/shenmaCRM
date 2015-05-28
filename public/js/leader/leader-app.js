@@ -1,4 +1,4 @@
-angular.module('leader-module',['ngRoute','d3','chartDataService'])
+angular.module('leader-module',['ngRoute','datatablesDirectives'])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider
             .when('/',{
