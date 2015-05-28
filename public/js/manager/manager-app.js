@@ -2,7 +2,8 @@ angular.module('manager-module',['ngRoute','userInfo','datatablesDirectives'])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider
             .when('/',{
-                templateUrl:'/public/templates/manager/Manager.html'
+                templateUrl:'/public/templates/leader/projectGoals.html',
+                controller:'goalsCtrl'
             })
             .when('/manager',{
                 templateUrl:'/public/templates/manager/Manager.html'
