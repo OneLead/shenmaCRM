@@ -18,16 +18,22 @@
         </div>
     </div>
     <div ng-controller="expenseContentCtrl" id="expenseContent">
-        <nav>
+        <nav class="hidden">
             <ul class="pager">
                 <li ng-click="older()" class="previous"><a href=""><span aria-hidden="true">&larr;</span> Older</a></li>
                 <li ng-click="newer()" class="next"><a href="">Newer <span aria-hidden="true">&rarr;</span></a></li>
             </ul>
         </nav>
+        <table ng-show="n!='total'" datatable class="table table-striped m-b-none">
+            <thead><tr>
+                <th>分类名</th><th>总费用</th><th>总成效</th><th>费效比</th>
+            </tr></thead>
+        </table>
         <p ng-show="n=='total'">项目成交费效比：<br>
             总投入费用（{{totalExpense | number:0}}）<br>
             总投入人员（{{totalSum | number:0}}）<br>
             人均费用（{{totalExpense/totalSum | number:0}}）
         </p>
+        <div id="no-data" ng-show="nodata">暂无数据</div>
     </div>
 </section>

@@ -14,8 +14,24 @@ angular.module('marketing-module')
             "lengthChange":3,
             "aoColumns": [
                 { "mData": "date" },
-                { "mData": "fact" },
-                { "mData": "goal" }
+                {
+                    "mData": "fact",
+                    "mRender":function(data){
+                        return data+'人';
+                    }
+                },
+                {
+                    "mData": "goal",
+                    "mRender":function(data){
+                        return data+'人';
+                    }
+                },
+                {
+                    "mData": "goal",
+                    "mRender":function(data,type,full){
+                        return Math.round(full.fact*100/full.goal)+'%';
+                    }
+                }
             ]
         };
         function parseState(n){

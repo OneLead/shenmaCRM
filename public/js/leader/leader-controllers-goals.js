@@ -13,49 +13,26 @@ angular.module('leader-module')
             "lengthChange":3,
             "aoColumns": [
                 { "mData": "date" },
-                { "mData": "fact" },
-                { "mData": "goal" }
+                {
+                    "mData": "fact",
+                    "mRender":function(data){
+                        return data+'人';
+                    }
+                },
+                {
+                    "mData": "goal",
+                    "mRender":function(data){
+                        return data+'人';
+                    }
+                },
+                {
+                    "mData": "goal",
+                    "mRender":function(data,type,full){
+                        return Math.round(full.fact*100/full.goal)+'%';
+                    }
+                }
             ]
         };
-        //$scope.dtOptions = {
-        //    "bProcessing": true,
-        //    "bServerSide": true,
-        //    iDisplayLength: 5,
-        //    sAjaxSource: 'http://115.29.151.151:8080/retailer/customer/queryReport?sessionID='+ sID,
-        //    sAjaxDataProp: 'aaData',
-        //
-        //    sPaginationType: "full_numbers",
-        //    "aoColumns":
-        //        [
-        //            { "mData": "#" },
-        //            { "mData": "时间段",
-        //                "sClass": "center",
-        //                "mRender": function(data,type,full) {
-        //                    return '<a class="emplyeeInfoLink" href="javascript:;">阿司法所</a>';
-        //                }
-        //            },
-        //            { "mData": "目标人数" },
-        //            { "mData": "实际成交" }
-        //        ],
-        //    /*"aoColumnDefs":[
-        //     {
-        //     "aTargets":[4],
-        //     "mData": null
-        //     }
-        //     ],*/
-        //    "fnServerData": function( sUrl, aoData, fnCallback, oSettings ) {
-        //        oSettings.jqXHR = $.ajax({
-        //            "url": sUrl,
-        //            beforeSend: function(xhr) {
-        //                xhr.withCredentials = true;
-        //            },
-        //            "data": aoData,
-        //            "type": 'get',
-        //            "success": fnCallback,
-        //            "cache": false
-        //        });
-        //    }
-        //}
         function parseState(n){
             switch(n){
                 case 'visited':return 1;

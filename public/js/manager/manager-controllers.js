@@ -50,8 +50,8 @@ angular.module('manager-module')
         getInfo($scope);
     })
     .controller('goalsCtrl',function($scope,$rootScope){
-        $scope.n = 'visited';
-        $scope.c = 'month';
+        $scope.n = $scope.n || 'visited';
+        $scope.c = $scope.c || 'month';
         $rootScope.goto('project','goals');
         $scope.$watch('$parent.projN',function(newVal){
             location.assign('#/project'+newVal+'/goals');
