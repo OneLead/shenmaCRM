@@ -49,7 +49,6 @@ angular.module('manager-module')
             }
             $scope.table.api().destroy();
             $scope.table = angular.element("table[datatable]").dataTable(settings);
-            $scope.table.api().draw();
             $scope.nodata = false;
         },true);
     });
