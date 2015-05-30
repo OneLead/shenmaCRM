@@ -42,10 +42,12 @@ angular.module('leader-module')
             if(nV[2]=='person'){
                 settings.aoColumns[0].mData="userId";
                 settings.aoColumns[1].mData="userName";
+                $('thead').html('<tr> <th>工号</th><th>姓名</th><th>工作成绩(人数)</th> </tr>');
             }
             else if(nV[2]=='method'){
                 settings.aoColumns[0].mData="code";
                 settings.aoColumns[1].mData="name";
+                $('thead').html('<tr> <th>编号</th><th>渠道名</th><th>工作成绩(人数)</th> </tr>');
             }
             $scope.table.api().destroy();
             $scope.table = angular.element("table[datatable]").dataTable(settings);

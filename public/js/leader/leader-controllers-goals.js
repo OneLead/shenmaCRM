@@ -12,18 +12,15 @@ angular.module('leader-module')
             "dom":'ptf',
             "lengthChange":3,
             "aoColumns": [
-                { "mData": "date" },
                 {
-                    "mData": "fact",
-                    "mRender":function(data){
-                        return data+'人';
-                    }
+                    "mData": "date",
+                    "sClass": "dateCol"
                 },
                 {
-                    "mData": "goal",
-                    "mRender":function(data){
-                        return data+'人';
-                    }
+                    "mData": "fact"
+                },
+                {
+                    "mData": "goal"
                 },
                 {
                     "mData": "goal",

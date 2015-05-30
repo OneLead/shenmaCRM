@@ -13,18 +13,15 @@ angular.module('marketing-module')
             "dom":'ptf',
             "lengthChange":3,
             "aoColumns": [
-                { "mData": "date" },
                 {
-                    "mData": "fact",
-                    "mRender":function(data){
-                        return data+'人';
-                    }
+                    "mData": "date",
+                    "sClass": "dateCol"
                 },
                 {
-                    "mData": "goal",
-                    "mRender":function(data){
-                        return data+'人';
-                    }
+                    "mData": "fact"
+                },
+                {
+                    "mData": "goal"
                 },
                 {
                     "mData": "goal",
@@ -64,8 +61,7 @@ angular.module('marketing-module')
                         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
                     }
                 }).success(function(data){
-                    if(data.length==0)
-                    {
+                    if(data.length==0) {
                         $scope.todayHtml = $sce.trustAsHtml('今日暂无任务');
                     }
                     else{
