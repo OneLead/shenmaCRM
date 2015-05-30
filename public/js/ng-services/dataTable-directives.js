@@ -112,7 +112,7 @@ angular.module('datatablesDirectives', []).directive('datatable', function ($htt
             //});
 
             // Load the datatable!
-            $scope.table = $elem.dataTable(options).api();
+            $scope.table = $elem.dataTable(options);
             //console.log(options);
         }
     }

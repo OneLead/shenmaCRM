@@ -45,7 +45,7 @@ angular.module('leader-module')
                 $('.dataTables_wrapper').show();
                 var url = 'http://115.29.151.151:8080/retailer/customer/queryReportNew?reportType='+parseState(nV[0])+'&dateType='+nV[1]+'&sessionID='+sID;
                 console.log(url);
-                $scope.table.ajax
+                $scope.table.api().ajax
                     .url(url)
                     .load(function(d){
                         $scope.nodata = false;

@@ -20,12 +20,17 @@
         </div>
     </div>
     <div ng-controller="rankingContentCtrl" id="rankingContent">
-        <nav>
+        <nav class="hidden">
             <ul class="pager">
                 <li class="previous"><a href="" ng-click="higher()"><span aria-hidden="true">&larr;</span> Higher</a></li>
                 <li class="next"><a href="" ng-click="lower()">Lower <span aria-hidden="true">&rarr;</span></a></li>
             </ul>
         </nav>
+        <table datatable class="table table-striped m-b-none">
+            <thead><tr>
+                <th>工号</th><th>姓名</th><th>工作成绩(人数)</th>
+            </tr></thead>
+        </table>
         <div id="no-data" ng-show="nodata">暂无数据</div>
     </div>
 </section>

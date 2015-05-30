@@ -41,9 +41,8 @@ angular.module('manager-module')
         }
         $scope.$parent.$watch('[n,c,$parent.projN]',function(nV){
             $scope.nodata = true;
-            console.log(nV);
             if(nV[0]!='total'){
-                $scope.table.ajax
+                $scope.table.api().ajax
                     .url('http://115.29.151.151:8080/retailer/customer/queryReportNew?reportType='+parseState(nV[0])+'&dateType='+nV[1]+'&sessionID='+sID+'&projectId='+nV[2])
                     .load(function(d){
                         $scope.nodata = false;
