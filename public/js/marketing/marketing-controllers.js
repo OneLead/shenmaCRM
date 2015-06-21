@@ -104,7 +104,6 @@ angular.module('marketing-module')
                 angular.element('#upload-info').append($compile(html)($scope));
             }
         });
-        $scope.modify = false;
         $scope.loading = true;
         $scope.customer = {
             location:'正在获取位置……',
@@ -130,29 +129,11 @@ angular.module('marketing-module')
             });
             $scope.$apply();
         }
-        $scope.modifyMap = function(direction){
-            switch(direction){
-                case 'left':
-                    lon-=0.0005;
-                    setPtAndAddr(lon,lat);
-                    break;
-                case 'right':
-                    lon+=0.0005;
-                    setPtAndAddr(lon,lat);
-                    break;
-                case 'up':
-                    lat+=0.0005;
-                    setPtAndAddr(lon,lat);
-                    break;
-                case 'down':
-                    lat-=0.0005;
-                    setPtAndAddr(lon,lat);
-                    break;
-            }
-        };
-        navigator.geolocation.getCurrentPosition(function(position){
-            lon = position.coords.longitude;
-            lat = position.coords.latitude;
+        geo.addEventListener("geofail",function(evt){alert('定位失败');});
+        geo.addEventListener("geosuccess",function(evt){
+            var addr = evt.detail.coords;
+            lon = addr.lng;
+            lat = addr.lat;
             setPtAndAddr(lon,lat);
         });
         //var uuid = sessionStorage.getItem('uuid');

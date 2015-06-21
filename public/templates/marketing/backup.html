@@ -1,35 +1,16 @@
 <form novalidate name="custForm" ng-jq>
+    <lbs-geo class=" alert alert-info" city="北京" enable-modified="false" id="geo"></lbs-geo>
+    <p ng-bind="customer.location" id="map-location-text" class="hidden"></p>
     <div class="input-group img-group">
-        <span class="input-group-addon img-addon-text">
-            报备地点<br>
-            <a ng-click="modify=true" class="btn {{modify||loading?'disabled':''}}"><i class="glyphicon glyphicon-pencil"></i></a>
-        </span>
+        <span class="input-group-addon img-addon-text">报备地点</span>
         <input style="width:0;border:0;padding:0;" disabled ng-model="customer.pt" type="text" class="form-control" placeholder="">
         <span class="input-group-addon img-addon">
             <img width="180" height="140"
                  src="http://api.map.baidu.com/staticimage?width=180&height=140
                  &zoom=15&markers={{customer.pt}}&center={{customer.pt}}&
                  markerStyles=l,A,#f0ad4e&scale=2&copyright=1" />
-            <div class="modify up" ng-show="modify&&!loading">
-                <i class="glyphicon glyphicon-arrow-up" ng-click="modifyMap('up')"></i>
-            </div>
-            <div class="modify left" ng-show="modify&&!loading">
-                <i class="glyphicon glyphicon-arrow-left" ng-click="modifyMap('left')"></i>
-            </div>
-            <div class="modify right" ng-show="modify&&!loading">
-                <i class="glyphicon glyphicon-arrow-right" ng-click="modifyMap('right')"></i>
-            </div>
-            <div class="modify down" ng-show="modify&&!loading">
-                <i class="glyphicon glyphicon-arrow-down" ng-click="modifyMap('down')"></i>
-            </div>
-            <div class="modify ok" ng-show="modify&&!loading">
-                <i class="glyphicon glyphicon-ok" ng-click="modify=false"></i>
-            </div>
         </span>
     </div>
-    <p ng-bind="customer.location" id="map-location-text"
-       class="alert alert-{{success?'success':'info'}}">
-    </p>
     <div class="input-group">
         <span class="input-group-addon">报备时间</span>
         <input disabled ng-model="customer.time" type="text" class="form-control" placeholder="">
@@ -50,7 +31,7 @@
     </div>
     <div class="btn-group btn-group-justified" role="group" aria-label="...">
         <div class="btn-group" role="group">
-            <button type="button" class="{{(validatePhone()&&customer.name!='')?'   ':'disabled '}}btn btn-default btn-primary" ng-click="next(customer)">立刻提交</button>
+            <button type="button" class="{{(validatePhone()&&customer.name!=''&&customer.name!=undefined)?'   ':'disabled '}}btn btn-default btn-primary" ng-click="next(customer)">立刻提交</button>
         </div>
     </div>
 </form>
