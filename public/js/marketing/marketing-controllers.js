@@ -153,30 +153,33 @@ angular.module('marketing-module')
         };
         $scope.next = function(cus){
             $('#myModal').modal('show');
+            var data = 'sessionID='+sID+
+                '&position='+cus.pt+','+cus.location+
+                '&name='+cus.name+
+                '&mobile='+cus.phone+
+                '&detail='+(cus.detail||'空')/*+
+             '&salesUUID='+uuid*/,
+                url = localStorage.getItem('ip')+'retailer/customer/create';
             $http({
-                url:localStorage.getItem('ip')+'retailer/customer/create',
+                url:url,
                 method:'POST',
-                data:'sessionID='+sID+
-                    '&position='+cus.pt+','+cus.location+
-                    '&name='+cus.name+
-                    '&mobile='+cus.phone+
-                    '&detail='+(cus.detail||'空')/*+
-                    '&salesUUID='+uuid*/,
+                data:data,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
                 }
             }).success(function(data){
+                //alert(data.result);
                 if(data.result=='1'){
                     var html = '<span>上传成功！<a ng-click="'+
                         "quitTo('customer')"+
                         '">点击</a>跳转到客户列表界面</span>';
-                    console.log(html);
+                    //alert(html);
                     angular.element('#upload-info').append($compile(html)($scope));
                     //$scope.$apply();
                     //location.assign('#/customer');
                 }
                 else {
-                    var html = '<span>存入数据库失败，请点击<a ng-click="'+
+                    var html = '<span>'+data.errMsg+'请点击<a ng-click="'+
                         "quitTo('backup')" +
                         '">重新登记客户信息</a></span>';
                     angular.element('#upload-info').append($compile(html)($scope));
