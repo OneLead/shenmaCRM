@@ -101,7 +101,7 @@ angular.module('marketing-module')
                 var html="<p>今天没有任务，请联系项目主管。</p><a class='btn' ng-click='";
                     html+= 'quitTo("customer")';
                     html+="'>回到客户列表</a>";
-                angular.element('#upload-info').append($compile(html)($scope));
+                angular.element('#upload-info').empty().append($compile(html)($scope));
             }
         });
         $scope.loading = true;
@@ -174,7 +174,7 @@ angular.module('marketing-module')
                         "quitTo('customer')"+
                         '">点击</a>跳转到客户列表界面</span>';
                     //alert(html);
-                    angular.element('#upload-info').append($compile(html)($scope));
+                    angular.element('#upload-info').empty().append($compile(html)($scope));
                     //$scope.$apply();
                     //location.assign('#/customer');
                 }
@@ -182,13 +182,13 @@ angular.module('marketing-module')
                     var html = '<span>'+data.errMsg+'请点击<a ng-click="'+
                         "quitTo('backup')" +
                         '">重新登记客户信息</a></span>';
-                    angular.element('#upload-info').append($compile(html)($scope));
+                    angular.element('#upload-info').empty().append($compile(html)($scope));
                 }
             }).error(function(err){
                 var html = '<p>'+err+'</p>'+'<span>存入数据库失败，请点击<a ng-click="'+
                     "quitTo('backup')" +
                     '">重新登记客户信息</a></span>';
-                angular.element('#upload-info').append($compile(html)($scope));
+                angular.element('#upload-info').empty().append($compile(html)($scope));
             });
         };
     }])
