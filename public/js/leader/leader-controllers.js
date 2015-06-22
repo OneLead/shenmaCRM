@@ -215,7 +215,7 @@ angular.module('leader-module')
                 url:localStorage.getItem('ip')+'retailer/task/'+(uuid=='new'?'create':'modify'),
                 data:(uuid=='new'?'':'uuid='+uuid+'&')+'sessionID='+sID+
                 '&salesModeUUID='+$scope.data.salesMode.uuid+'&budget='+ d.budget+
-                '&name='+ (d.name||'未命名任务')+'&area='+ d.area+','+map.getZoom()+','/*+$scope.d+','*/+$scope.location+'&quotaVisit='+ d.quotaVisit+
+                '&name='+ (d.name||'未命名任务')+'&area='+ d.area+','+map.getZoom()+','+$scope.radius+','+$scope.location+'&quotaVisit='+ d.quotaVisit+
                 '&quotaDeal='+ d.quotaDeal+'&actionTime='+$scope.date+userListUpdate,
                 method:'POST',
                 headers: {
@@ -284,7 +284,7 @@ angular.module('leader-module')
                     $scope.data = data.data;
                     console.log(data);
                     var temp = data.data.area.split(',');
-                    $scope.location = temp.slice(3).join(',');
+                    $scope.location = temp.slice(4).join(',');
                     $scope.data.area = temp.slice(0,2).join(',');
                     $scope.success = true;
                     var pointGot = new BMap.Point(+temp[0],+temp[1]);
