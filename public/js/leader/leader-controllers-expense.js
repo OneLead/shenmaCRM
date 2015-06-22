@@ -6,6 +6,9 @@ angular.module('leader-module')
         $scope.tab = function(name){
             $scope.$parent.n = name;
         };
+        $scope.state = function(name){
+            $scope.$parent.s = name;
+        };
     })
     .controller('expenseContentCtrl',function($scope,$http){
         $scope.dtOptions = {
@@ -39,7 +42,7 @@ angular.module('leader-module')
                 case 'area':return 6;
             }
         }
-        $scope.$parent.$watch('[n,c]',function(nV){
+        $scope.$parent.$watch('[n,c,s]',function(nV){
             $scope.nodata = true;
             if(nV[0]!='total'){
                 $('.dataTables_wrapper').show();

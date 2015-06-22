@@ -69,6 +69,7 @@ angular.module('manager-module')
     .controller('expenseCtrl',function($scope,$rootScope){
         $scope.n = 'total';
         $scope.c = 'week';
+        $scope.s = 'knockdowned';
         $rootScope.goto('project','expense');
         $scope.$watch('$parent.projN',function(newVal){
             location.assign('#/project'+newVal+'/expense');

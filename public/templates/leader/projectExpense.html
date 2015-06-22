@@ -5,6 +5,10 @@
             <a href="" class="btn btn-{{c=='month'?'primary':'default'}}" role="button" ng-click="goto('month')">月</a>
             <a href="" class="btn btn-{{c=='all'?'primary':'default'}}" role="button" ng-click="goto('all')">总</a>
         </p>
+        <p class="text-center" ng-hide="n=='total'">
+            <a href="" class="btn btn-{{s=='knockdowned'?'primary':'default'}}" role="button" ng-click="state('knockdowned')">成交</a>
+            <a href="" class="btn btn-{{s=='visited'?'primary':'default'}}" role="button" ng-click="state('visited')">到访</a>
+        </p>
         <div class="btn-group btn-group-justified" role="group" aria-label="...">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default cat{{n=='total'?'':' active'}}" ng-click="tab('total')">项目总费效比</button>
@@ -31,7 +35,7 @@
         </table>
         <p ng-show="n=='total'">项目成交费效比：<br>
             总投入费用（{{totalExpense | number:0}}）<br>
-            总投入人员（{{totalSum | number:0}}）<br>
+            总获取客户（{{totalSum | number:0}}）<br>
             人均费用（{{totalExpense/totalSum | number:0}}）
         </p>
         <div id="no-data" ng-show="nodata">暂无数据</div>

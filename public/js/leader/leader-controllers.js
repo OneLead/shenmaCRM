@@ -402,6 +402,7 @@ angular.module('leader-module')
     .controller('expenseCtrl',function($scope,$rootScope){
         $scope.n = 'total';
         $scope.c = 'week';
+        $scope.s = 'knockdowned';
         $rootScope.goto('project','expense');
     })
     .controller('goalsCtrl',function($scope,$rootScope){

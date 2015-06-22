@@ -6,6 +6,9 @@ angular.module('manager-module')
         $scope.tab = function(name){
             $scope.$parent.n = name;
         };
+        $scope.state = function(name){
+            $scope.$parent.s = name;
+        };
     })
     .controller('expenseContentCtrl',function($scope,$rootScope,$http){
         $scope.dtOptions = {
@@ -39,11 +42,11 @@ angular.module('manager-module')
                 case 'area':return 6;
             }
         }
-        $scope.$parent.$watch('[n,c,$parent.projN]',function(nV){
+        $scope.$parent.$watch('[n,c,s,$parent.projN]',function(nV){
             $scope.nodata = true;
             if(nV[0]!='total'){
                 $scope.table.api().ajax
-                    .url('http://115.29.151.151:8080/retailer/customer/queryReportNew?reportType='+parseState(nV[0])+'&dateType='+nV[1]+'&sessionID='+sID+'&projectId='+nV[2])
+                    .url('http://115.29.151.151:8080/retailer/customer/queryReportNew?reportType='+parseState(nV[0])+'&dateType='+nV[1]+'&sessionID='+sID+'&projectId='+nV[3])
                     .load(function(d){
                         $scope.nodata = false;
                         $scope.$apply();
@@ -52,7 +55,7 @@ angular.module('manager-module')
             }
             else {
                 $http({
-                    url:'http://115.29.151.151:8080/retailer/customer/queryReportNew?reportType=4&sessionID='+sID+'&projectId='+nV[2],
+                    url:'http://115.29.151.151:8080/retailer/customer/queryReportNew?reportType=4&sessionID='+sID+'&projectId='+nV[3],
                     method:'GET',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
