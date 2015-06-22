@@ -1,4 +1,4 @@
-angular.module('leader-module',['ngRoute','userInfo','datatablesDirectives'])
+angular.module('leader-module',['ngRoute','userInfo','datatablesDirectives','CheckIn'])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider
             .when('/',{
@@ -12,6 +12,15 @@ angular.module('leader-module',['ngRoute','userInfo','datatablesDirectives'])
             .when('/task/update/:id',{
                 templateUrl:'/public/templates/leader/taskUpdate.html',
                 controller:'taskUpdateCtrl'
+            });
+        $routeProvider
+            .when('/sign/list',{
+                templateUrl:'/public/templates/leader/signList.html',
+                controller:'signListCtrl'
+            })
+            .when('/sign/detail/:uuid/:name/:type',{
+                templateUrl:'/public/templates/leader/signDetail.html',
+                controller:'signDetailCtrl'
             });
         $routeProvider
             .when('/project/ranking',{

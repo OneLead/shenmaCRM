@@ -1,17 +1,14 @@
-angular.module('marketing-module',['ngRoute','userInfo','datatablesDirectives'])
+angular.module('marketing-module',['ngRoute','userInfo','datatablesDirectives','CheckIn'])
     .config(['$routeProvider',function($routeProvider){
         $routeProvider
             .when('/',{
-                templateUrl:'/public/templates/marketing/customerCat.html',
-                controller:'customer'
+                templateUrl:'/public/templates/marketing/index.html',
+                controller:'indexController'
             })
             .when('/customer',{
                 templateUrl:'/public/templates/marketing/customerCat.html',
                 controller:'customer'
             })
-            //.when('/customer/category',{
-            //    templateUrl:'/public/templates/customerCat.html'
-            //})
             .when('/customer/details/:customerID',{
                 templateUrl:'/public/templates/service/detail.html',
                 controller:'customerDetails'

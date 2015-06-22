@@ -1,6 +1,10 @@
 angular.module('marketing-module')
     .controller('marketingHeaderController',['$scope','$element','$http',function($scope,$element,$http){
         var $collapse = $element.find('.navbar-collapse');
+        $scope.gotoIndex = function(){
+            $element.find('.item').removeClass('active');
+            $collapse.removeClass('in');
+        };
         $scope.gotoCustomer = function(){
             $element.find('.item').removeClass('active');
             $element.find('.customer').addClass('active');
@@ -42,8 +46,60 @@ angular.module('marketing-module')
             });
         };
     }])
+    .controller('indexController',['$scope','CheckInService','$rootScope',function($scope,CheckInService,$rootScope){
+        $rootScope.gotoIndex();
+        $scope.signing = false;
+        document.body.style.backgroundColor = 'rgb(44,46,47)';
+        var checkIn = {
+            state:false,//是否已完成第一次定位
+            lng:0,
+            lat:0,
+            location:'未获取'
+        };
+        geo.addEventListener("geofail",function(){
+            alert('定位失败');
+            $scope.signing = false;
+        });
+        geo.addEventListener("geosuccess",function(evt){
+            var addr = evt.detail.coords;
+            if((checkIn.lng = addr.lng) && (checkIn.lat = addr.lat))
+                setPtAndAddr(checkIn);
+        });
+        function setPtAndAddr(checkIn){
+            var point = new BMap.Point(checkIn.lng, checkIn.lat);
+            var gc = new BMap.Geocoder();
+            gc.getLocation(point, function (rs) {
+                var addComp = rs.addressComponents;
+                checkIn.location = checkIn.lng + "," + checkIn.lat + "," + addComp.province + "," +
+                addComp.city + "," +
+                addComp.district + "," +
+                addComp.street + "," +
+                addComp.streetNumber;
+                if(checkIn.state){
+                    CheckInService.checkIn({
+                        position:checkIn.location,
+                        sessionID:sID
+                    },function(data){
+                        if(data.result=='1')alert('签到成功');
+                        else if(data.result=='0')alert('签到失败：'+data.errMsg);
+                        $scope.signing = false;
+                    });
+                }
+                else checkIn.state = true;//第一次定位成功后才会为真
+            });
+        }
+        $scope.checkIn = function(){
+            //alert('签到！');
+            if(checkIn.state){
+                $scope.signing = true;
+                $('i.icon.-location.-large').click();
+            }
+            else alert('正在定位中，请稍后再试。如果始终出现此消息，则可能定位功能无效，可刷新页面再试。');
+        };
+    }])
     //main url path controllers
     .controller('customer',['$scope','$rootScope','$http',function($scope,$rootScope,$http){
+        document.body.style.backgroundColor = 'white';
         $scope.n = 0;
         $rootScope.gotoCustomer();
         $scope.dataList = [];
@@ -51,7 +107,7 @@ angular.module('marketing-module')
             id = sessionStorage.getItem('sessionID'),
             uuid = sessionStorage.getItem('uuid');
         $list = angular.element("#custTable");
-        $list.height(window.innerHeight-150);
+        $list.height(window.innerHeight-110);
         $list.on('scroll',function(e){
             var t = e.target;
             if(idle && pageNum<totalPageNum && t.scrollHeight-t.scrollTop-5 <= +t.style.height.slice(0,-2)){
@@ -83,6 +139,7 @@ angular.module('marketing-module')
         });
     }])
     .controller('backup',['$scope','$routeParams','$http','$compile','$rootScope',function($scope,$routeParams,$http,$compile,$rootScope){
+        document.body.style.backgroundColor = 'white';
         $rootScope.gotoBackup();
         $('#myModal').modal({
             backdrop:'static',
@@ -193,11 +250,13 @@ angular.module('marketing-module')
         };
     }])
     .controller('pGoals',['$scope','$rootScope',function($scope,$rootScope){
+        document.body.style.backgroundColor = 'white';
         $scope.n = 'visited';
         $scope.c = 'month';
         $rootScope.gotoPGoals();
     }])
     .controller('pInfo',['$scope','$rootScope','$routeParams','$http','getInfo',function($scope,$rootScope,$routeParams,$http,getInfo){
+        document.body.style.backgroundColor = 'white';
         $rootScope.gotoPInfo();
         $scope.data = {};
         $scope.userinfo = {};
@@ -212,12 +271,14 @@ angular.module('marketing-module')
         getInfo($scope);
     }])
     .controller('pRanking',['$rootScope','$scope',function($rootScope,$scope){
+        document.body.style.backgroundColor = 'white';
         $scope.n = 'visited';
         $scope.c = 'all';
         $rootScope.gotoPRanking();
     }])
     //secondary url path controllers
     .controller('customerDetails',['$routeParams','$scope','$http',function($routeParams,$scope,$http){
+        document.body.style.backgroundColor = 'white';
         //console.log($routeParams);
         var id = $routeParams.customerID;
         $scope.service = false;

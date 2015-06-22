@@ -1,0 +1,29 @@
+<section class="sign-list">
+    <div class="navbar-fixed-bottom">
+        <p class="text-center">
+            <a href="" class="btn btn-{{c=='day'?'primary':'default'}}" role="button" ng-click="goto('day')">日</a>
+            <a href="" class="btn btn-{{c=='week'?'primary':'default'}}" role="button" ng-click="goto('week')">周</a>
+            <a href="" class="btn btn-{{c=='month'?'primary':'default'}}" role="button" ng-click="goto('month')">月</a>
+        </p>
+    </div>
+    <div id="signListTable">
+        <nav class="hidden">
+            <ul class="pager">
+                <li class="previous"><a href=""><span aria-hidden="true">&larr;</span> Older</a></li>
+                <li class="next"><a href="">Newer <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+        <table class="table table-striped m-b-none">
+            <thead><tr>
+                <th>工号</th><th>姓名</th><th>签到次数</th>
+            </tr></thead>
+            <tr ng-repeat="sign in tableData" ng-show="$parent.judge(sign)" ng-click="$parent.jumpToDetail(sign.uuid,sign.name,$parent.c)">
+                <td ng-bind="sign.userID"></td>
+                <td ng-bind="sign.name"></td>
+                <td ng-bind="sign.count"></td>
+            </tr>
+        </table>
+        <p>Search:&nbsp;&nbsp;<input type="text" ng-model="keyword" ng-trim="true"></p>
+        <div id="no-data" ng-show="nodata">暂无数据</div>
+    </div>
+</section>

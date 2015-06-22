@@ -336,6 +336,63 @@ angular.module('leader-module')
             });
         }
     })
+    .controller('signListCtrl',function(CheckInService,$rootScope,$scope){
+        $rootScope.goto('sign');
+        $scope.c = 'day';
+        $scope.keyword = '';
+        $scope.goto = function(str){
+            $scope.c = str;
+        };
+        $scope.$watch('c',function(nV){
+            $scope.nodata = true;
+            CheckInService.list({sessionID:sID,dateType:nV},function(data){
+                //console.log(data);
+                if(data.result=='1'){
+                    $scope.tableData = data.data;
+                    if($scope.tableData.length!==0)$scope.nodata = false;
+                }
+            });
+        });
+        $scope.judge = function(sign){
+            return sign.userID.search($scope.keyword)+1!==0
+            || sign.name.search($scope.keyword)+1!==0
+            || sign.count.search($scope.keyword)+1!==0;
+        };
+        $scope.jumpToDetail = function(uuid,name,type){
+            if(uuid===undefined)location.assign('#/sign/detail/795c6d8f1a624806a81a92d797dda5be/'+name+'/'+type);
+            else location.assign('#/sign/detail/'+uuid+'/'+name+'/'+type);
+        };
+        //alert('list');
+    })
+    .controller('signDetailCtrl',function($scope,CheckInService,$routeParams){
+        console.info('detail '+$routeParams.uuid);
+        $scope.nodata = true;
+        $scope.keyword = '';
+        $scope.name = $routeParams.name;
+        $scope.judge = function(sign){
+            return sign.position.split(',').slice(2).join(',').search($scope.keyword)+1!==0
+                || sign.signTime.search($scope.keyword)+1!==0;
+        };
+        CheckInService.detail({sessionID:sID,dateType:$routeParams.type,uUUID:$routeParams.uuid},function(data){
+            console.log(data);
+            if(data.result=='1'){
+                $scope.tableData = data.data;
+                if($scope.tableData.length!==0)$scope.nodata = false;
+                var dateArr=data.extendAttr.date.split('-');
+                switch($routeParams.type){
+                    case 'day':
+                        $scope.date = dateArr[0]+'年'+dateArr[1]+'月'+dateArr[2]+'日';
+                        break;
+                    case 'week':
+                        $scope.date = dateArr[0]+'年第'+dateArr[1]+'周';
+                        break;
+                    case 'month':
+                        $scope.date = dateArr[0]+'年'+dateArr[1]+'月';
+                        break;
+                }
+            }
+        });
+    })
     .controller('rankingCtrl',function($scope,$rootScope){
         $scope.n = 'visited';
         $scope.c = 'all';

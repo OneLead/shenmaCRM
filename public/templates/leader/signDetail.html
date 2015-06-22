@@ -1,0 +1,22 @@
+<section class="sign-list">
+    <div id="signDetailTable">
+        <nav class="hidden">
+            <ul class="pager">
+                <li class="previous"><a href=""><span aria-hidden="true">&larr;</span> Older</a></li>
+                <li class="next"><a href="">Newer <span aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+        </nav>
+        <p><span ng-bind="name"></span>&nbsp;&nbsp;{{date}}签到信息</p>
+        <table class="table table-striped m-b-none">
+            <thead><tr>
+                <th>位置</th><th>签到时间</th>
+            </tr></thead>
+            <tr ng-repeat="sign in tableData" ng-show="$parent.judge(sign)">
+                <td ng-bind="sign.position.split(',').slice(2).join(',')"></td>
+                <td ng-bind="sign.signTime"></td>
+            </tr>
+        </table>
+        <p>Search:&nbsp;&nbsp;<input type="text" ng-model="keyword" ng-trim="true"></p>
+        <div id="no-data" ng-show="nodata">暂无数据</div>
+    </div>
+</section>

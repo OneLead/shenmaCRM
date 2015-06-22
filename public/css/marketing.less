@@ -129,10 +129,45 @@ form{
   @import "includes/navbar.less";
 .lbs-tag{
   color: #31708f!important;
+  padding: 5px!important;
 }
 .geo-bar-box .locbar{
   border:1px solid #d9edf7!important;
   background: #d9edf7!important;
   margin-right:0;
   margin-left:0;
+}
+.img-group .img-addon{
+  width:100%;
+  height:auto;
+}
+div.index-list-buttons {
+  position:relative;
+  padding-top:80px;
+  & > div.loading-gif{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color: transparent;
+    text-align: center;
+    line-height: 340px;
+    img{
+      width:50px;
+      height:50px;
+    }
+  }
+  & > a.btn {
+    border: 1px solid #6e6e6e;
+    background-color: #313334;
+    display: block;
+    margin: 20px auto 0;
+    height: 60px;
+    line-height: 45px;
+    vertical-align: middle;
+    width: 90%;
+    color: rgb(245,245,245);
+    font-size: 1.2em;
+  }
 }
