@@ -77,9 +77,8 @@ angular.module('marketing-module')
                 addComp.streetNumber;
                 if(checkIn.state){
                     CheckInService.checkIn({
-                        position:checkIn.location,
                         sessionID:sID
-                    },function(data){
+                    },'position='+checkIn.location,function(data){
                         if(data.result=='1')alert('签到成功');
                         else if(data.result=='0')alert('签到失败：'+data.errMsg);
                         $scope.signing = false;

@@ -46,7 +46,7 @@ angular.module('leader-module')
             $scope.nodata = true;
             if(nV[0]!='total'){
                 $('.dataTables_wrapper').show();
-                var url = 'http://115.29.151.151:8080/retailer/customer/queryReportNew?reportType='+parseState(nV[0])+'&dateType='+nV[1]+'&sessionID='+sID;
+                var url = 'http://115.29.151.151:8080/retailer/customer/queryReportNew?reportType='+parseState(nV[0])+'&dateType='+nV[1]+'&state='+(nV[2]=='visited'?1:3)+'&sessionID='+sID;
                 console.log(url);
                 $scope.table.api().ajax
                     .url(url)
@@ -57,7 +57,7 @@ angular.module('leader-module')
             }
             else {
                 $http({
-                    url:'http://115.29.151.151:8080/retailer/customer/queryReportNew?reportType=4&sessionID='+sID,
+                    url:'http://115.29.151.151:8080/retailer/customer/queryReportNew?reportType=4&sessionID='+sID+'&state='+(nV[2]=='visited'?1:3),
                     method:'GET',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'

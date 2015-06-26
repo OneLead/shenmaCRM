@@ -46,7 +46,7 @@ angular.module('manager-module')
             $scope.nodata = true;
             if(nV[0]!='total'){
                 $scope.table.api().ajax
-                    .url('http://115.29.151.151:8080/retailer/customer/queryReportNew?reportType='+parseState(nV[0])+'&dateType='+nV[1]+'&sessionID='+sID+'&projectId='+nV[3])
+                    .url('http://115.29.151.151:8080/retailer/customer/queryReportNew?reportType='+parseState(nV[0])+'&dateType='+nV[1]+'&state='+(nV[2]=='visited'?1:3)+'&sessionID='+sID+'&projectId='+nV[3])
                     .load(function(d){
                         $scope.nodata = false;
                         $scope.$apply();
@@ -55,7 +55,7 @@ angular.module('manager-module')
             }
             else {
                 $http({
-                    url:'http://115.29.151.151:8080/retailer/customer/queryReportNew?reportType=4&sessionID='+sID+'&projectId='+nV[3],
+                    url:'http://115.29.151.151:8080/retailer/customer/queryReportNew?reportType=4&sessionID='+sID+'&state='+(nV[2]=='visited'?1:3)+'&projectId='+nV[3],
                     method:'GET',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'

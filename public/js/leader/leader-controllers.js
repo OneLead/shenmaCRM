@@ -373,7 +373,7 @@ angular.module('leader-module')
             return sign.position.split(',').slice(2).join(',').search($scope.keyword)+1!==0
                 || sign.signTime.search($scope.keyword)+1!==0;
         };
-        CheckInService.detail({sessionID:sID,dateType:$routeParams.type,uUUID:$routeParams.uuid},function(data){
+        CheckInService.detail({sessionID:sID,dateType:$routeParams.type,userUUID:$routeParams.uuid},function(data){
             console.log(data);
             if(data.result=='1'){
                 $scope.tableData = data.data;

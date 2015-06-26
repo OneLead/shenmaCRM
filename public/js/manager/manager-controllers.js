@@ -1,5 +1,6 @@
 angular.module('manager-module')
     .controller('managerHeaderController',function($scope,$element,$http){
+        "use strict";
         var id = sessionStorage.getItem('sessionID');
         $scope.projN = 1;
         $scope.projs = [];

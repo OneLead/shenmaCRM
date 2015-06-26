@@ -4,7 +4,7 @@ angular.module('CheckIn',['ngResource'])
         return $resource(ip+'retailer/user/:verb',{sessionID:'@sessionID'},{
             checkIn:{
                 method:'POST',
-                params:{verb:'sign',position:'@position'},
+                params:{verb:'sign'},
                 headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
             },
             list:{
@@ -19,12 +19,12 @@ angular.module('CheckIn',['ngResource'])
             },
             detail:{
                 method:'GET',
-                params:{verb:'signDetailList',dateType:'@dateType',date:0,userUUID:'@uUUID'},
+                params:{verb:'signDetailList',dateType:'@dateType',date:0,userUUID:'@userUUID'},
                 headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
             },
             managerDetail:{
                 method:'GET',
-                params:{verb:'signDetailList',dateType:'@dateType',date:0,userUUID:'@uUUID',projectUUID:'@pUUID'},
+                params:{verb:'signDetailList',dateType:'@dateType',date:0,userUUID:'@userUUID',projectUUID:'@pUUID'},
                 headers:{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
             }
         });
