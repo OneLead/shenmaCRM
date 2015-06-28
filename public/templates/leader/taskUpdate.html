@@ -42,7 +42,7 @@
         <label>
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon2">员工</span>
-                <select multiple="multiple" class="form-control" name="staff"
+                <select ng-model="staffUUIDArr" multiple="multiple" class="form-control" name="staff"
                 aria-describedby="basic-addon2">
                     <option ng-repeat="staff in staffs" value="{{staff.uuid}}">{{staff.name}}</option>
                 </select>

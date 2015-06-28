@@ -90,6 +90,7 @@ angular.module('leader-module')
         $scope.r = 45;
         $scope.radius = '';
         $scope.success = false;
+        $scope.staffUUIDArr = [];
         var map = new BMap.Map('map',{enableMapClick:false});
         var gc = new BMap.Geocoder();
         var overlay = document.createElement('div');
@@ -169,6 +170,7 @@ angular.module('leader-module')
         $scope.methods = [];//存储所有行销方式
         $scope.staffs = [];//存储所有员工
         $scope.pastTask = false;
+        //获取销售渠道
         $http({
             url:localStorage.getItem('ip')+'retailer/salesMode/getAll?sessionID='+sID,
             method:'GET',
@@ -181,6 +183,7 @@ angular.module('leader-module')
                 flag++;
             }
         });
+        //获取属于该项目的所有行销专员
         $http({
             url:localStorage.getItem('ip')+'retailer/user/queryProjectUser?sessionID='+sID,
             method:'GET',
@@ -207,9 +210,8 @@ angular.module('leader-module')
         $scope.submit = function(d){
             $('#myModal').modal('show');
             var userListUpdate = '';
-            for(var i= 0,l=options.length,o;i<l;i++){
-                o=options[i];
-                if(o.selected==true)userListUpdate+='&listUserUUID[]='+o.value;
+            for(var i= 0,l=$scope.staffUUIDArr.length;i<l;i++){
+                userListUpdate+='&listUserUUID[]='+$scope.staffUUIDArr[i];
             }
             $http({
                 url:localStorage.getItem('ip')+'retailer/task/'+(uuid=='new'?'create':'modify'),
@@ -241,23 +243,26 @@ angular.module('leader-module')
             });
         };
         $scope.validate = function(){
-            var validate =
-                flag==3 &&
-                /2[0-9]{3}-[0-1][0-9]-[0-3][0-9]/.test($scope.date) &&
-                /[1-9][0-9]*/.test($scope.data.budget) &&
-                /[1-9][0-9]*/.test($scope.data.quotaDeal) &&
-                /[1-9][0-9]*/.test($scope.data.quotaVisit) &&
-                /.*周边$/.test($scope.location) &&
-                $scope.data.name.length <= 26;
-            if(!validate)return validate;
+            var l,validate =
+                flag==3 &&//销售模式、员工列表已加载，且如果不是新建任务的话，已选中员工列表已加载
+                /^2[0-9]{3}-[0-1][0-9]-[0-3][0-9]$/.test($scope.date) &&//任务日期正确
+                /^[1-9][0-9]*$/.test($scope.data.budget) &&//预算正确
+                /^[1-9][0-9]*$/.test($scope.data.quotaDeal) &&//成交目标正确
+                /^[1-9][0-9]*$/.test($scope.data.quotaVisit) &&//到访目标正确
+                /^.*周边$/.test($scope.location) &&//地址正确
+                /^[1-9][0-9]*米$/.test($scope.radius) &&//半径正确
+                /^[1-9][0-9]*.[0-9]{6},[1-9][0-9]*.[0-9]{6}$/.test($scope.data.area) &&//经纬度正确
+                $scope.data.name.length <= 26;//任务名正确
+            if(!validate)return validate;//以上如果有错误，则验证不成功
+            else if((l=$scope.staffUUIDArr.length)==0) return false;//如果一个员工都没有选中，则返回错误
             else {
-                for(var i= 0,l=options.length,o;i<l;i++){
-                    o=options[i];
-                    if(o.selected==true) {
-                        return uuid == 'new' || /[0-9a-zA-Z]{32}/.test($scope.data.salesMode.uuid);
+                for(var i= 0;i<l;i++){
+                    if(!/^[0-9a-zA-Z]{32}$/.test($scope.staffUUIDArr[i])) {
+                        return false;//每个选中员工列表里的uuid都必须符合格式
                     }
                 }
-                return false;
+                //如果以上验证都通过，则判断销售模式是不是已选
+                return /^[0-9a-zA-Z]{32}$/.test($scope.data.salesMode.uuid);
             }
         };
         if(uuid=='new'){
@@ -282,7 +287,7 @@ angular.module('leader-module')
                 if(data.result=='1'){
                     //设置data.data最重要的是salesMode.uuid被初始化
                     $scope.data = data.data;
-                    console.log(data);
+                    //console.log(data);
                     var temp = data.data.area.split(',');
                     $scope.location = temp.slice(4).join(',');
                     $scope.data.area = temp.slice(0,2).join(',');
@@ -316,17 +321,8 @@ angular.module('leader-module')
                         if(flag==2){
                             clearInterval(inter);
                             userList = data.data.userList;
-                            userList.hasUuid = function(uuid){
-                                for(var i = 0, l = this.length; i < l; i++){
-                                    if(this[i].uuid===uuid)return true;
-                                }
-                                return false;
-                            };
-                            for(var i = 0, l = options.length, o; i < l; i++){
-                                o=options[i];
-                                if(userList.hasUuid(o.value)){
-                                    o.selected = true;
-                                }
+                            for(var i = 0, l = userList.length; i < l; i++){
+                                $scope.staffUUIDArr.push(userList[i].uuid);
                             }
                             flag++;
                             $scope.$apply();
