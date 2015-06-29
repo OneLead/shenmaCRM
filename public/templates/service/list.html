@@ -17,7 +17,7 @@
         <li ng-repeat="data in dataList" class="customer-card">
             <customer-card name="data.name"
                state="stateParse(data.state)"
-               serial="data.id" project="data.projectName"
+               serial="data.id" project="data.sales.project.name"
                phone="data.mobile" source="'地推派单'"
                     uuid="data.uuid">
             </customer-card>

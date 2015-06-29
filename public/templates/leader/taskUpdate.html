@@ -57,7 +57,7 @@
     </div>
     <p ng-bind="location+''+radius" id="map-location-text"
        class="alert alert-{{success?'success':'info'}}"></p>
-    <button class="btn btn-block{{validate()?'':' disabled'}}" ng-click="submit(data)">立即提交</button>
+    <button class="btn btn-block btn-danger{{validate()?'':' disabled'}}" ng-click="submit(data)">立即提交</button>
 </form>
 
 <!-- Modal -->

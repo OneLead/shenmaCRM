@@ -8,24 +8,24 @@
 </div>
 <div ng-controller="stepContentCtrl">
     <section ng-show="step==1">
-        <button class="btn btn-block{{updating?' disabled':''}}" ng-click="nextStep()">确认到访</button>
+        <button class="btn btn-block btn-danger{{updating?' disabled':''}}" ng-click="nextStep()">确认到访</button>
     </section>
     <section ng-show="step==2">
-        <button class="btn btn-block{{updating?' disabled':''}}" ng-click="prevStep()">撤销到访</button>
+        <button class="btn btn-block btn-danger{{updating?' disabled':''}}" ng-click="prevStep()">撤销到访</button>
         <input disabled="{{updating?'disabled':'false'}}" id="rangeInput" type="range" min="1" value="1" max="60" ng-model="visitCount">
         <p>
             <i class="glyphicon glyphicon-triangle-left btn btn-primary{{updating?' disabled':''}}" ng-click="cutCount()"></i>
             <span ng-bind="visitCount"></span>
             <i class="glyphicon glyphicon-triangle-right btn btn-primary{{updating?' disabled':''}}" ng-click="addCount()"></i>
         </p>
-        <button class="btn btn-block{{updating?' disabled':''}}" ng-click="nextStep()">确认认筹</button>
+        <button class="btn btn-block btn-danger{{updating?' disabled':''}}" ng-click="nextStep()">确认认筹</button>
     </section>
     <section ng-show="step==3">
-        <button class="btn btn-block{{updating?' disabled':''}}" ng-click="prevStep()">撤销认筹</button>
-        <button class="btn btn-block{{updating?' disabled':''}}" ng-click="nextStep()">确认成交</button>
+        <button class="btn btn-block btn-danger{{updating?' disabled':''}}" ng-click="prevStep()">撤销认筹</button>
+        <button class="btn btn-block btn-danger{{updating?' disabled':''}}" ng-click="nextStep()">确认成交</button>
     </section>
     <section ng-show="step==4">
-        <button class="btn btn-block{{updating?' disabled':''}}" ng-click="prevStep()">撤销成交</button>
+        <button class="btn btn-block btn-danger{{updating?' disabled':''}}" ng-click="prevStep()">撤销成交</button>
     </section>
 </div>
 <div>这里是备注部分</div>
