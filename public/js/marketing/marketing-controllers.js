@@ -155,8 +155,8 @@ angular.module('marketing-module')
             if(data.taskList.length==0){
                 $('#myModal').modal('show');
                 var html="<p>今天没有任务，请联系项目主管。</p><a class='btn' ng-click='";
-                    html+= 'quitTo("customer")';
-                    html+="'>回到客户列表</a>";
+                    html+= 'quitTo("")';
+                    html+="'>回到首页</a>";
                 angular.element('#upload-info').empty().append($compile(html)($scope));
             }
         });
@@ -227,8 +227,8 @@ angular.module('marketing-module')
                 //alert(data.result);
                 if(data.result=='1'){
                     var html = '<span>上传成功！<a ng-click="'+
-                        "quitTo('customer')"+
-                        '">点击</a>跳转到客户列表界面</span>';
+                        "quitTo('')"+
+                        '">点击</a>跳转到首页</span>';
                     //alert(html);
                     angular.element('#upload-info').empty().append($compile(html)($scope));
                     //$scope.$apply();

@@ -272,7 +272,7 @@ angular.module('leader-module')
             $scope.pastTask = false;
             $scope.data.salesMode = {uuid:''};
             $scope.location = '请点击／缩放地图，使蓝色圆形覆盖目标区域';
-            map.centerAndZoom('北京',11);
+            map.centerAndZoom('青岛',11);
         }
         else{
             $scope.location = "正在获取行销区域……";
