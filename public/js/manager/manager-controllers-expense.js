@@ -23,15 +23,17 @@ angular.module('manager-module')
                     }
                 },
                 {
-                    "mData": "deal",
+                    "mData": "sum",
                     "mRender":function(data){
+                        if(!data)return '0人';
                         return data+'人';
                     }
                 },
                 {
-                    "mData": "deal",
+                    "mData": "sum",
                     "mRender":function(data,type,full){
-                        return Math.round(full.budget/full.deal)+'元/人';
+                        if(!full.sum)return '投入资金全无成效!';
+                        return Math.round(full.budget/full.sum)+'元/人';
                     }
                 }
             ]
