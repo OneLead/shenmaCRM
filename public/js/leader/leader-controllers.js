@@ -335,8 +335,8 @@ angular.module('leader-module')
                                     staffListReady = true;
                                     userList = $scope.data.userList;
                                     for (var i = 0, l = userList.length; i < l; i++) {
-                                        $scope.staffUUIDArr.push(userList[i].uuid);
                                         $scope.staffs.push(userList[i]);
+                                        $scope.staffUUIDArr.push(userList[i].uuid);
                                     }
                                     $scope.$apply();
                                 }
