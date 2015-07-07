@@ -117,9 +117,9 @@ angular.module('leader-module')
         }
         map.addEventListener("click", function(e){
             //var center = map.getCenter();
-            $scope.$apply(function() {
+            $timeout(function() {
                 $scope.data.area = e.point.lng + ',' + e.point.lat;
-            });
+            },0);
             gc.getLocation(e.point, function(rs){
                             var addComp = rs.addressComponents;
                             var addr = addComp.province + ", " +
