@@ -329,11 +329,11 @@ angular.module('leader-module')
                         }).success(function(data){
                             if(data.result=='1'){
                                 console.log(data);
-                                $scope.staffs = $scope.data.dataList;
+                                $scope.staffs = data.data.dataList;
                                 //设置被派发任务的有哪些员工（初始化多选列表）
                                 if(!staffListReady) {
                                     staffListReady = true;
-                                    userList = data.data.userList;
+                                    userList = $scope.data.userList;
                                     for (var i = 0, l = userList.length; i < l; i++) {
                                         $scope.staffUUIDArr.push(userList[i].uuid);
                                     }
