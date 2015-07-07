@@ -329,7 +329,7 @@ angular.module('leader-module')
                         }).success(function(data){
                             if(data.result=='1'){
                                 console.log(data);
-                                $scope.staffs = data.data.dataList;
+                                $scope.staffs = $scope.data.dataList;
                                 //设置被派发任务的有哪些员工（初始化多选列表）
                                 if(!staffListReady) {
                                     staffListReady = true;
