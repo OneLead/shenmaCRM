@@ -336,8 +336,8 @@ angular.module('leader-module')
                                     userList = $scope.data.userList;
                                     for (var i = 0, l = userList.length; i < l; i++) {
                                         $scope.staffUUIDArr.push(userList[i].uuid);
+                                        $scope.staffs.push({uuid:userList[i].uuid});
                                     }
-                                    $scope.staffs.concat($scope.staffUUIDArr);
                                     $scope.$apply();
                                 }
                                 else $scope.staffUUIDArr=[];
