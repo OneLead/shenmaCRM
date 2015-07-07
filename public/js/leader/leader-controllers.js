@@ -117,9 +117,9 @@ angular.module('leader-module')
         }
         map.addEventListener("click", function(e){
             //var center = map.getCenter();
-            $timeout(function() {
+            $scope.$apply(function() {
                 $scope.data.area = e.point.lng + ',' + e.point.lat;
-            },0);
+            });
             gc.getLocation(e.point, function(rs){
                             var addComp = rs.addressComponents;
                             var addr = addComp.province + ", " +
@@ -127,10 +127,10 @@ angular.module('leader-module')
                                 addComp.district + ", " +
                                 addComp.street + ", " +
                                 addComp.streetNumber + " 周边";
-                            $scope.$apply(function(){
+                            $timeout(function(){
                                 $scope.location = addr;
                                 $scope.success = true;
-                            });
+                            },0);
                         });
             drawCircleAndLogDiff(e.point,true);
             makeCircleFollow();
