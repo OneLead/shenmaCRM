@@ -145,22 +145,6 @@ angular.module('leader-module')
                 drawCircleAndLogDiff(point,false);
             });
         }
-        $scope.$watch('date',function(nV){
-            //获取属于该项目的所有行销专员
-            $http({
-                url:localStorage.getItem('ip')+'retailer/user/queryProjectUser?sessionID='+sID+'&actionTime='+nV,
-                method:'GET',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-                }
-            }).success(function(data){
-                if(data.result=='1'){
-                    console.log(data);
-                    $scope.staffs = data.data.dataList;
-                    flag++;
-                }
-            });
-        });
         $scope.setDate = function(d){
             var date = new Date();
             if(d=='tomorrow'){
@@ -186,6 +170,22 @@ angular.module('leader-module')
         $scope.methods = [];//存储所有行销方式
         $scope.staffs = [];//存储所有员工
         $scope.pastTask = false;
+        $scope.$watch('date',function(nV){
+            //获取属于该项目的所有行销专员
+            $http({
+                url:localStorage.getItem('ip')+'retailer/user/queryProjectUser?sessionID='+sID+'&actionTime='+nV,
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                }
+            }).success(function(data){
+                if(data.result=='1'){
+                    console.log(data);
+                    $scope.staffs = data.data.dataList;
+                    flag++;
+                }
+            });
+        });
         //获取销售渠道
         $http({
             url:localStorage.getItem('ip')+'retailer/salesMode/getAll?sessionID='+sID,
@@ -303,7 +303,7 @@ angular.module('leader-module')
                     (function(){
                         angular.element('label.time').removeClass('active');
                         var dateSplit = $scope.date.split('-');
-                        var date,today = new Date();
+                        var today = new Date();
                         if(today.getFullYear()==dateSplit[0]
                             &&today.getMonth()+1==dateSplit[1]
                             &&today.getDate()==dateSplit[2]){
@@ -320,14 +320,17 @@ angular.module('leader-module')
                     })();
                     //设置被派发任务的有哪些员工（初始化多选列表）
                     var inter = setInterval(function(){
-                        if(flag==2){
-                            clearInterval(inter);
+                        if(flag==3){
                             userList = data.data.userList;
                             for(var i = 0, l = userList.length; i < l; i++){
                                 $scope.staffUUIDArr.push(userList[i].uuid);
                             }
                             flag++;
                             $scope.$apply();
+                        }
+                        else if(flag==4){
+                            clearInterval(inter);
+                            $scope.staffUUIDArr=[];
                         }
                     },400);
                 }
