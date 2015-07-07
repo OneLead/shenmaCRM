@@ -145,6 +145,22 @@ angular.module('leader-module')
                 drawCircleAndLogDiff(point,false);
             });
         }
+        $scope.$watch('date',function(nV){
+            //获取属于该项目的所有行销专员
+            $http({
+                url:localStorage.getItem('ip')+'retailer/user/queryProjectUser?sessionID='+sID+'&actionTime='+nV,
+                method:'GET',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                }
+            }).success(function(data){
+                if(data.result=='1'){
+                    console.log(data);
+                    $scope.staffs = data.data.dataList;
+                    flag++;
+                }
+            });
+        });
         $scope.setDate = function(d){
             var date = new Date();
             if(d=='tomorrow'){
@@ -180,20 +196,6 @@ angular.module('leader-module')
         }).success(function(data){
             if(data.result=='1'){
                 $scope.methods = data.data;
-                flag++;
-            }
-        });
-        //获取属于该项目的所有行销专员
-        $http({
-            url:localStorage.getItem('ip')+'retailer/user/queryProjectUser?sessionID='+sID,
-            method:'GET',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-            }
-        }).success(function(data){
-            if(data.result=='1'){
-                console.log(data);
-                $scope.staffs = data.data.dataList;
                 flag++;
             }
         });
