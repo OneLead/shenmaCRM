@@ -81,7 +81,7 @@ angular.module('leader-module')
             }
         });
     })
-    .controller('taskUpdateCtrl',function($http,$routeParams,$scope,$compile){
+    .controller('taskUpdateCtrl',function($http,$routeParams,$scope,$compile,$timeout){
         var sessionID = sessionStorage.getItem('sessionID'),
             uuid = $routeParams.id,
             flag = 0,
@@ -341,7 +341,7 @@ angular.module('leader-module')
                                 }
                                 else $scope.staffUUIDArr=[];
                             }
-                            $scope.$apply();
+                            $timeout(function(){$scope.$apply();},0);
                         });
                     });
                 }
