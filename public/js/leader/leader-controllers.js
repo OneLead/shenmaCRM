@@ -170,22 +170,6 @@ angular.module('leader-module')
         $scope.methods = [];//存储所有行销方式
         $scope.staffs = [];//存储所有员工
         $scope.pastTask = false;
-        $scope.$watch('date',function(nV){
-            //获取属于该项目的所有行销专员
-            $http({
-                url:localStorage.getItem('ip')+'retailer/user/queryProjectUser?sessionID='+sID+'&actionTime='+nV,
-                method:'GET',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-                }
-            }).success(function(data){
-                if(data.result=='1'){
-                    console.log(data);
-                    $scope.staffs = data.data.dataList;
-                    flag++;
-                }
-            });
-        });
         //获取销售渠道
         $http({
             url:localStorage.getItem('ip')+'retailer/salesMode/getAll?sessionID='+sID,
@@ -275,6 +259,21 @@ angular.module('leader-module')
             $scope.data.salesMode = {uuid:''};
             $scope.location = '请点击／缩放地图，使蓝色圆形覆盖目标区域';
             map.centerAndZoom('青岛',11);
+            $scope.$watch('date',function(nV){
+                //获取属于该项目的所有行销专员
+                $http({
+                    url:localStorage.getItem('ip')+'retailer/user/queryProjectUser?sessionID='+sID+'&actionTime='+nV,
+                    method:'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                    }
+                }).success(function(data){
+                    if(data.result=='1'){
+                        console.log(data);
+                        $scope.staffs = data.data.dataList;
+                    }
+                });
+            });
         }
         else{
             $scope.location = "正在获取行销区域……";
@@ -318,21 +317,32 @@ angular.module('leader-module')
                             }
                         }
                     })();
-                    //设置被派发任务的有哪些员工（初始化多选列表）
-                    var inter = setInterval(function(){
-                        if(flag==3){
-                            userList = data.data.userList;
-                            for(var i = 0, l = userList.length; i < l; i++){
-                                $scope.staffUUIDArr.push(userList[i].uuid);
+                    var staffListReady = false;
+                    $scope.$watch('date',function(nV){
+                        //获取属于该项目的所有行销专员
+                        $http({
+                            url:localStorage.getItem('ip')+'retailer/user/queryProjectUser?sessionID='+sID+'&actionTime='+nV,
+                            method:'GET',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
                             }
-                            flag++;
-                            $scope.$apply();
-                        }
-                        else if(flag==4){
-                            clearInterval(inter);
-                            $scope.staffUUIDArr=[];
-                        }
-                    },1);
+                        }).success(function(data){
+                            if(data.result=='1'){
+                                console.log(data);
+                                $scope.staffs = data.data.dataList;
+                                //设置被派发任务的有哪些员工（初始化多选列表）
+                                if(!staffListReady) {
+                                    staffListReady = true;
+                                    userList = data.data.userList;
+                                    for (var i = 0, l = userList.length; i < l; i++) {
+                                        $scope.staffUUIDArr.push(userList[i].uuid);
+                                    }
+                                    $scope.$apply();
+                                }
+                                else $scope.staffUUIDArr=[];
+                            }
+                        });
+                    });
                 }
             });
         }
