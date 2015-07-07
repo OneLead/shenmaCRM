@@ -332,7 +332,7 @@ angular.module('leader-module')
                             clearInterval(inter);
                             $scope.staffUUIDArr=[];
                         }
-                    },400);
+                    },1);
                 }
             });
         }
