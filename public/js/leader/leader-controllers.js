@@ -343,6 +343,7 @@ angular.module('leader-module')
                                             $scope.staffs.push(userList[i]);
                                             $scope.staffUUIDArr.push(userList[i].uuid);
                                         }
+                                        $scope.$apply();
                                     },0);
                                 }
                                 else $scope.staffUUIDArr=[];

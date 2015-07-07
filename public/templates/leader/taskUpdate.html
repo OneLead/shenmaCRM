@@ -43,8 +43,8 @@
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon2">员工</span>
                 <select ng-model="staffUUIDArr" multiple="multiple" class="form-control" name="staff"
-                aria-describedby="basic-addon2">
-                    <option ng-repeat="staff in staffs" value="{{staff.uuid}}">{{staff.name}}</option>
+                aria-describedby="basic-addon2" ng-options="staff.uuid as staff.name for staff in staffs">
+                    <!--<option ng-repeat="staff in staffs" value="{{staff.uuid}}">{{staff.name}}</option>-->
                 </select>
             </div>
         </label>
