@@ -105,9 +105,9 @@ angular.module('leader-module')
                 var pointLeft = map.pixelToPoint(new BMap.Pixel(cPixel.x - $scope.r, cPixel.y));
                 //console.log('竖直半径：'++'Km');
                 //console.log('水平半径：'++'Km');
-                $scope.$apply(function(){
+                $timeout(function(){
                     $scope.radius=Math.round((GetDistance(pointTop.lat,pointTop.lng,lngLatPoint.lat,lngLatPoint.lng)+GetDistance(pointLeft.lat,pointLeft.lng,lngLatPoint.lat,lngLatPoint.lng))*500)+'米';
-                });
+                },0);
             }
             overlay.style.top = cPixel.y;
             overlay.style.left = cPixel.x;
