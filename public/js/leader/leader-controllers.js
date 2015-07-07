@@ -106,7 +106,7 @@ angular.module('leader-module')
                 //console.log('竖直半径：'++'Km');
                 //console.log('水平半径：'++'Km');
                 $scope.radius=Math.round((GetDistance(pointTop.lat,pointTop.lng,lngLatPoint.lat,lngLatPoint.lng)+GetDistance(pointLeft.lat,pointLeft.lng,lngLatPoint.lat,lngLatPoint.lng))*500)+'米';
-                $scope.$apply();
+                $scope.$apply($scope.radius);
             }
             overlay.style.top = cPixel.y;
             overlay.style.left = cPixel.x;
