@@ -81,7 +81,7 @@ angular.module('leader-module')
             }
         });
     })
-    .controller('taskUpdateCtrl',function($http,$routeParams,$scope,$compile){
+    .controller('taskUpdateCtrl',function($http,$routeParams,$scope,$compile,$timeout){
         var sessionID = sessionStorage.getItem('sessionID'),
             uuid = $routeParams.id,
             flag = 0,
@@ -338,12 +338,12 @@ angular.module('leader-module')
                                 if(!staffListReady) {
                                     staffListReady = true;
                                     userList = $scope.data.userList;
-                                    $scope.$apply(function() {
+                                    $timeout(function() {
                                         for (var i = 0, l = userList.length; i < l; i++) {
                                             $scope.staffs.push(userList[i]);
                                             $scope.staffUUIDArr.push(userList[i].uuid);
                                         }
-                                    });
+                                    },0);
                                 }
                                 else $scope.staffUUIDArr=[];
                             }
