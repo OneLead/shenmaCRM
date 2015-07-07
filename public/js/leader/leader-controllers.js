@@ -105,8 +105,9 @@ angular.module('leader-module')
                 var pointLeft = map.pixelToPoint(new BMap.Pixel(cPixel.x - $scope.r, cPixel.y));
                 //console.log('竖直半径：'++'Km');
                 //console.log('水平半径：'++'Km');
-                $scope.radius=Math.round((GetDistance(pointTop.lat,pointTop.lng,lngLatPoint.lat,lngLatPoint.lng)+GetDistance(pointLeft.lat,pointLeft.lng,lngLatPoint.lat,lngLatPoint.lng))*500)+'米';
-                $scope.$apply($scope.radius);
+                $scope.$apply(function(){
+                    $scope.radius=Math.round((GetDistance(pointTop.lat,pointTop.lng,lngLatPoint.lat,lngLatPoint.lng)+GetDistance(pointLeft.lat,pointLeft.lng,lngLatPoint.lat,lngLatPoint.lng))*500)+'米';
+                });
             }
             overlay.style.top = cPixel.y;
             overlay.style.left = cPixel.x;
@@ -334,14 +335,15 @@ angular.module('leader-module')
                                 if(!staffListReady) {
                                     staffListReady = true;
                                     userList = $scope.data.userList;
-                                    for (var i = 0, l = userList.length; i < l; i++) {
-                                        $scope.staffs.push(userList[i]);
-                                        $scope.staffUUIDArr.push(userList[i].uuid);
-                                    }
+                                    $scope.$apply(function() {
+                                        for (var i = 0, l = userList.length; i < l; i++) {
+                                            $scope.staffs.push(userList[i]);
+                                            $scope.staffUUIDArr.push(userList[i].uuid);
+                                        }
+                                    });
                                 }
                                 else $scope.staffUUIDArr=[];
                             }
-                            $scope.$apply($scope.staffUUIDArr);
                         });
                     });
                 }
