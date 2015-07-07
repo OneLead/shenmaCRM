@@ -234,7 +234,7 @@ angular.module('leader-module')
         };
         $scope.validate = function(){
             var l,validate =
-                flag==3 &&//销售模式、员工列表已加载，且如果不是新建任务的话，已选中员工列表已加载
+                //flag==3 &&//销售模式、员工列表已加载，且如果不是新建任务的话，已选中员工列表已加载
                 /^2[0-9]{3}-[0-1][0-9]-[0-3][0-9]$/.test($scope.date) &&//任务日期正确
                 /^[1-9][0-9]*$/.test($scope.data.budget) &&//预算正确
                 /^[1-9][0-9]*$/.test($scope.data.quotaDeal) &&//成交目标正确
