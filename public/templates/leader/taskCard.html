@@ -7,6 +7,6 @@
     <p class="task budget">预算金额：{{budget}}</p>
     <p class="task area">行销区域：{{area}}</p>
     <p class="task staff">执行人员：
-        <span ng-repeat="name in names">{{name.name}}、</span>
+        <span ng-repeat="name in names">{{name.name}}{{$last?'':'、'}}</span>
     </p>
 </div>
