@@ -92,7 +92,7 @@ angular.module('marketing-module')
             if(idle)getData(pageNum,newVal);
         });
     }])
-    .controller('backup',['$scope','$routeParams','$http','$compile','$rootScope',function($scope,$routeParams,$http,$compile,$rootScope){
+    .controller('backup',['$scope','$routeParams','$http','$compile','$rootScope','$interval',function($scope,$routeParams,$http,$compile,$rootScope,$interval){
         document.body.style.backgroundColor = 'white';
         $rootScope.gotoBackup();
         $('#myModal').modal({
@@ -180,12 +180,17 @@ angular.module('marketing-module')
                 }
             }).success(function(data){
                 //alert(data.result);
+                $scope.countdown = 5;
                 if(data.result=='1'){
                     var html = '<span>上传成功！<a ng-click="'+
                         "quitTo('')"+
-                        '">点击</a>跳转到首页</span>';
+                        '">点击</a>跳转到首页</span>&nbsp;<span>{{countdown}}秒</span>';
                     //alert(html);
                     angular.element('#upload-info').empty().append($compile(html)($scope));
+                    $interval(function(){
+                        $scope.countdown--;
+                        if($scope.countdown===0)$scope.quitTo('');
+                    },1000);
                     //$scope.$apply();
                     //location.assign('#/customer');
                 }
@@ -194,12 +199,20 @@ angular.module('marketing-module')
                         "quitTo('backup')" +
                         '">重新登记客户信息</a></span>';
                     angular.element('#upload-info').empty().append($compile(html)($scope));
+                    $interval(function(){
+                        $scope.countdown--;
+                        if($scope.countdown===0)$scope.quitTo('backup');
+                    },1000);
                 }
             }).error(function(err){
                 var html = '<p>'+err+'</p>'+'<span>存入数据库失败，请点击<a ng-click="'+
                     "quitTo('backup')" +
                     '">重新登记客户信息</a></span>';
                 angular.element('#upload-info').empty().append($compile(html)($scope));
+                $interval(function(){
+                    $scope.countdown--;
+                    if($scope.countdown===0)$scope.quitTo('backup');
+                },1000);
             });
         };
     }])

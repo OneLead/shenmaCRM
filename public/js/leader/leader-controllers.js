@@ -58,7 +58,7 @@ angular.module('leader-module')
             }
         });
     })
-    .controller('taskUpdateCtrl',function($http,$routeParams,$scope,$compile,$timeout){
+    .controller('taskUpdateCtrl',function($http,$routeParams,$scope,$compile,$timeout,$interval){
         var sessionID = sessionStorage.getItem('sessionID'),
             uuid = $routeParams.id,
             flag = 0,
@@ -193,19 +193,28 @@ angular.module('leader-module')
             }).success(function(data){
                 //console.log('update success',data);
                 var html;
+                $scope.countdown = 5;
                 if(data.result=='1'){
                     html = '<span>上传成功！<a ng-click="'+
                         "quitTo(true)"+
-                        '">点击</a>跳转到任务列表界面</span>';
+                        '">点击</a>跳转到任务列表界面</span>&nbsp;<span>{{countdown}}秒</span>';
                     angular.element('#upload-info').append($compile(html)($scope));
+                    $interval(function(){
+                        $scope.countdown--;
+                        if($scope.countdown===0)$scope.quitTo(true);
+                    },1000);
                     //$scope.$apply();
                     //location.assign('#/customer');
                 }
                 else {
                     html = '<span>存入数据库失败，请点击<a ng-click="'+
                         "quitTo(false)" +
-                        '">重新登记任务信息</a></span>';
+                        '">重新登记任务信息</a></span>&nbsp;<span>{{countdown}}秒</span>';
                     angular.element('#upload-info').append($compile(html)($scope));
+                    $interval(function(){
+                        $scope.countdown--;
+                        if($scope.countdown===0)$scope.quitTo(false);
+                    },1000);
                 }
             });
         };
