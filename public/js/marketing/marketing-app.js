@@ -32,4 +32,53 @@ angular.module('marketing-module',['ngRoute','userInfo','datatablesDirectives','
                 templateUrl:'public/templates/marketing/personalRanking.html',
                 controller:'pRanking'
             });
-    }]);
+    }])
+    .run(function($rootScope,$document,$http){
+        console.log($document);
+        //var $collapse = $document.find('.navbar-collapse');
+        //console.log($collapse);
+        $rootScope.gotoIndex = function(){
+            $document.find('.item').removeClass('active');
+            $document.find('.navbar-collapse').removeClass('in');
+        };
+        $rootScope.gotoCustomer = function(){
+            $document.find('.item').removeClass('active');
+            $document.find('.customer').addClass('active');
+            $document.find('.navbar-collapse').removeClass('in');
+        };
+        $rootScope.gotoBackup = function(){
+            $document.find('.item').removeClass('active');
+            $document.find('.backup').addClass('active');
+            $document.find('.navbar-collapse').removeClass('in');
+        };
+        $rootScope.gotoPGoals = function(){
+            $document.find('.item').removeClass('active');
+            $document.find('.goals').addClass('active');
+            $document.find('.personal').addClass('active');
+            $document.find('.navbar-collapse').removeClass('in');
+        };
+        $rootScope.gotoPInfo = function(){
+            $document.find('.item').removeClass('active');
+            $document.find('.info').addClass('active');
+            $document.find('.personal').addClass('active');
+            $document.find('.navbar-collapse').removeClass('in');
+        };
+        $rootScope.gotoPRanking = function(){
+            $document.find('.item').removeClass('active');
+            $document.find('.ranking').addClass('active');
+            $document.find('.personal').addClass('active');
+            $document.find('.navbar-collapse').removeClass('in');
+        };
+        $rootScope.exit = function(){
+            var id = sessionStorage.getItem('sessionID');
+            $http({
+                url:localStorage.getItem('ip')+'retailer/user/logoff?sessionID='+id,
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                }
+            }).success(function(){
+                location.assign('/');
+            });
+        };
+    });

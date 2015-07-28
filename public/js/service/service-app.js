@@ -28,4 +28,28 @@ angular.module('service-module',['ngRoute'])
                 templateUrl:'/public/templates/service/change.html',
                 controller:'custChange'
             });
-    }]);
+    }])
+    .app(function($rootScope,$document,$http){
+        $rootScope.goto = function(name){
+            $document.find('.item').removeClass('active');
+            $document.find('.'+name).addClass('active');
+            var $collapse = $document.find('.navbar-collapse');
+            $collapse.addClass('collapsing')
+                .removeClass('in');
+            setTimeout(function(){
+                $collapse.removeClass('collapsing');
+            },300);
+        };
+        $rootScope.exit = function(){
+            var id = sessionStorage.getItem('sessionID');
+            $http({
+                url:localStorage.getItem('ip')+'retailer/user/logoff?sessionID='+id,
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                }
+            }).success(function(){
+                location.assign('/');
+            });
+        };
+    });

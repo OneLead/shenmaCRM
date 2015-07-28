@@ -24,30 +24,7 @@ function GetDistance( lat1,  lng1,  lat2,  lng2)
     return s;
 }
 angular.module('leader-module')
-    .controller('leaderHeaderController',function($scope,$element,$http){
-        $scope.goto = function(name1,name2){
-            $element.find('li.item').removeClass('active');
-            $element.find('li.'+name1).addClass('active');
-            if(name2)$element.find('li.'+name2).addClass('active');
-            var $collapse = $element.find('.navbar-collapse');
-            $collapse.addClass('collapsing')
-                .removeClass('in');
-            setTimeout(function(){
-                $collapse.removeClass('collapsing');
-            },300);
-        };
-        $scope.exit = function(){
-            var id = sessionStorage.getItem('sessionID');
-            $http({
-                url:localStorage.getItem('ip')+'retailer/user/logoff?sessionID='+id,
-                method:'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-                }
-            }).success(function(){
-                location.assign('/');
-            });
-        };
+    .controller('leaderHeaderController',function(){
     })
     .controller('taskListCtrl',function($scope,$rootScope,$http){
         var sessionID = sessionStorage.getItem('sessionID');

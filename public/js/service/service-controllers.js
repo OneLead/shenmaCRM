@@ -1,27 +1,5 @@
 angular.module('service-module')
     .controller('serviceHeaderController',['$scope','$element','$http',function($scope,$element,$http){
-        $scope.goto = function(name){
-            $element.find('.item').removeClass('active');
-            $element.find('.'+name).addClass('active');
-            var $collapse = $element.find('.navbar-collapse');
-            $collapse.addClass('collapsing')
-                .removeClass('in');
-            setTimeout(function(){
-                $collapse.removeClass('collapsing');
-            },300);
-        };
-        $scope.exit = function(){
-            var id = sessionStorage.getItem('sessionID');
-            $http({
-                url:localStorage.getItem('ip')+'retailer/user/logoff?sessionID='+id,
-                method:'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-                }
-            }).success(function(){
-                location.assign('/');
-            });
-        };
     }])
     .controller('queryController',['$scope','$rootScope','$http',function($scope,$rootScope,$http){
         $rootScope.goto('query');

@@ -1,51 +1,6 @@
 angular.module('marketing-module')
-    .controller('marketingHeaderController',['$scope','$element','$http',function($scope,$element,$http){
-        var $collapse = $element.find('.navbar-collapse');
-        $scope.gotoIndex = function(){
-            $element.find('.item').removeClass('active');
-            $collapse.removeClass('in');
-        };
-        $scope.gotoCustomer = function(){
-            $element.find('.item').removeClass('active');
-            $element.find('.customer').addClass('active');
-            $collapse.removeClass('in');
-        };
-        $scope.gotoBackup = function(){
-            $element.find('.item').removeClass('active');
-            $element.find('.backup').addClass('active');
-            $collapse.removeClass('in');
-        };
-        $scope.gotoPGoals = function(){
-            $element.find('.item').removeClass('active');
-            $element.find('.goals').addClass('active');
-            $element.find('.personal').addClass('active');
-            $collapse.removeClass('in');
-        };
-        $scope.gotoPInfo = function(){
-            $element.find('.item').removeClass('active');
-            $element.find('.info').addClass('active');
-            $element.find('.personal').addClass('active');
-            $collapse.removeClass('in');
-        };
-        $scope.gotoPRanking = function(){
-            $element.find('.item').removeClass('active');
-            $element.find('.ranking').addClass('active');
-            $element.find('.personal').addClass('active');
-            $collapse.removeClass('in');
-        };
-        $scope.exit = function(){
-            var id = sessionStorage.getItem('sessionID');
-            $http({
-                url:localStorage.getItem('ip')+'retailer/user/logoff?sessionID='+id,
-                method:'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-                }
-            }).success(function(){
-                location.assign('/');
-            });
-        };
-    }])
+    .controller('marketingHeaderController',function(){
+    })
     .controller('indexController',['$scope','CheckInService','$rootScope',function($scope,CheckInService,$rootScope){
         $rootScope.gotoIndex();
         $scope.signing = false;
